@@ -1,4 +1,7 @@
 import { isMuted, sound, toggleMute, unlock } from './sound.ts'
+import { $, element } from './dom.ts'
+import { explain } from './lessons.ts'
+import { openSchool } from './school.ts'
 import { makeGame } from './workshop.ts'
 import type { Built } from './workshop.ts'
 
@@ -17,8 +20,7 @@ type Feedback = { type: 'feedback', kind: string, until?: number, strikes?: numb
 const KINDS = { hunt: 'HUNT!', race: 'RACE!' }
 const LEVELS = { chill: 'Chill mode', normal: 'Normal mode', hardcore: 'Hardcore mode' }
 const ABOUT = { hunt: 'A test is failing. Tap the broken line, fix it, hit Enter.', race: 'Type the code exactly, as fast as you can.' }
-const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T
-const screens = ['home', 'workshop', 'lobby', 'play', 'over'].map(id => $(id))
+const screens = ['home', 'school', 'workshop', 'lobby', 'play', 'over'].map(id => $(id))
 const nameInput = $<HTMLInputElement>('name')
 const typer = $<HTMLTextAreaElement>('typer')
 const invite = new URLSearchParams(location.search).get('room')?.toUpperCase().slice(0, 4) ?? ''
@@ -37,12 +39,6 @@ let lastLeft = -1
 let lastCombo = 0
 let built: Built | null = null
 
-const element = (tag: string, className = '', text = '') => {
-  const node = document.createElement(tag)
-  node.className = className
-  node.textContent = text
-  return node
-}
 const art = (name: string, width: number, height: number) => {
   const image = document.createElement('img')
   Object.assign(image, { src: `/web/art/${name}.svg`, alt: '', width, height })
@@ -301,7 +297,8 @@ const showReveal = (state: State) => {
     const line = $('code').children[state.reveal.bug] as HTMLElement | undefined
     if (line && !line.classList.contains('fixed')) line.classList.add('answer')
     const note = element('div', 'reveal')
-    note.append(`The bug was on line ${state.reveal.bug + 1}. The fix: `, element('code', '', state.reveal.fix.trim()))
+    const why = explain(round.lines[state.reveal.bug], state.reveal.fix)
+    note.append(`The bug was on line ${state.reveal.bug + 1}. The fix: `, element('code', '', state.reveal.fix.trim()), why ? ` Why: ${why}` : '')
     $('say').replaceChildren(note)
   }
   if (round?.kind === 'race') typer.disabled = true
@@ -498,6 +495,11 @@ $('solo').addEventListener('click', () => play({ type: 'join', mode: 'solo', lev
 $('daily').addEventListener('click', () => play({ type: 'join', mode: 'daily' }))
 $('party').addEventListener('click', () => play({ type: 'join', mode: 'party', level: level() }))
 $('make').addEventListener('click', () => show('workshop'))
+$('learn').addEventListener('click', () => {
+  show('school')
+  openSchool()
+})
+$('school-home').addEventListener('click', () => show('home'))
 $('byo-back').addEventListener('click', () => show('home'))
 $('byo-run').addEventListener('click', runWorkshop)
 $('byo-solo').addEventListener('click', () => playBuilt('solo'))

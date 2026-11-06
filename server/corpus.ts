@@ -495,5 +495,35 @@ export const CORPUS: Snippet[] = [
       ['canMove(0, 0, 3)', true], ['canMove(2, 2, 3)', true], ['canMove(3, 0, 3)', false],
       ['canMove(0, 3, 3)', false], ['canMove(-1, 0, 3)', false], ['canMove(0, -1, 3)', false]
     ]
+  },
+  {
+    name: 'isOdd',
+    source: code([
+      'function isOdd(n) {',
+      '  return !(n % 2 === 0)',
+      '}'
+    ]),
+    tests: [['isOdd(3)', true], ['isOdd(4)', false], ['isOdd(0)', false]]
+  },
+  {
+    name: 'canEdit',
+    source: code([
+      'function canEdit(user, doc) {',
+      '  return !doc.locked && user.id === doc.owner',
+      '}'
+    ]),
+    tests: [
+      ['canEdit({ id: 1 }, { locked: false, owner: 1 })', true], ['canEdit({ id: 1 }, { locked: true, owner: 1 })', false],
+      ['canEdit({ id: 1 }, { locked: false, owner: 2 })', false]
+    ]
+  },
+  {
+    name: 'isBlank',
+    source: code([
+      'function isBlank(text) {',
+      '  return !text.trim()',
+      '}'
+    ]),
+    tests: [["isBlank('')", true], ["isBlank('   ')", true], ["isBlank('hi')", false]]
   }
 ]

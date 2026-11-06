@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { test } from 'node:test'
 import { CORPUS } from '../server/corpus.ts'
-import { sameCode, tokenize } from '../shared/factory.ts'
+import { change, kindOf, sameCode, tokenize } from '../shared/factory.ts'
 import { buildPuzzles, failure } from '../server/puzzles.ts'
 
 const built = buildPuzzles(CORPUS)
@@ -43,6 +43,13 @@ test('bugs that change nothing are thrown out, and endless loops become clues', 
   assert.ok(built.stats.equivalent > 0)
   assert.equal(built.stats.kept, built.puzzles.length)
   assert.ok(built.puzzles.some(puzzle => puzzle.clue.actual === 'never finishes'))
+})
+
+test('every puzzle belongs to a Bug School lesson', () => {
+  const kinds = built.puzzles.map(puzzle => kindOf(change(puzzle.lines[puzzle.bug], puzzle.fix).from))
+  assert.ok(kinds.every(Boolean))
+  for (const kind of ['boolean', 'not', 'logic', 'equal', 'edge', 'number', 'math', 'count']) assert.ok(kinds.filter(found => found === kind).length >= 3, kind)
+  assert.deepEqual(change('  if (user.ok) return', '  if (!user.ok) return'), { from: '!', to: '' })
 })
 
 test('the saved puzzle file matches the corpus', () => {

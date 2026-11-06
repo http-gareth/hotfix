@@ -1,10 +1,10 @@
 {
  "stats": {
-  "functions": 44,
-  "candidates": 295,
+  "functions": 47,
+  "candidates": 304,
   "broken": 0,
   "equivalent": 18,
-  "kept": 277
+  "kept": 286
  },
  "puzzles": [
   {
@@ -5332,6 +5332,159 @@
     "actual": "true"
    },
    "difficulty": 2
+  },
+  {
+   "id": "isOdd:1:3:drop",
+   "name": "isOdd",
+   "lines": [
+    "function isOdd(n) {",
+    "  return (n % 2 === 0)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return !(n % 2 === 0)",
+   "clue": {
+    "call": "isOdd(3)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "isOdd:1:9:3",
+   "name": "isOdd",
+   "lines": [
+    "function isOdd(n) {",
+    "  return !(n % 3 === 0)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return !(n % 2 === 0)",
+   "clue": {
+    "call": "isOdd(3)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isOdd:1:9:1",
+   "name": "isOdd",
+   "lines": [
+    "function isOdd(n) {",
+    "  return !(n % 1 === 0)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return !(n % 2 === 0)",
+   "clue": {
+    "call": "isOdd(3)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isOdd:1:11:!==",
+   "name": "isOdd",
+   "lines": [
+    "function isOdd(n) {",
+    "  return !(n % 2 !== 0)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return !(n % 2 === 0)",
+   "clue": {
+    "call": "isOdd(3)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "isOdd:1:13:1",
+   "name": "isOdd",
+   "lines": [
+    "function isOdd(n) {",
+    "  return !(n % 2 === 1)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return !(n % 2 === 0)",
+   "clue": {
+    "call": "isOdd(3)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "canEdit:1:3:drop",
+   "name": "canEdit",
+   "lines": [
+    "function canEdit(user, doc) {",
+    "  return doc.locked && user.id === doc.owner",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return !doc.locked && user.id === doc.owner",
+   "clue": {
+    "call": "canEdit({ id: 1 }, { locked: false, owner: 1 })",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "canEdit:1:8:||",
+   "name": "canEdit",
+   "lines": [
+    "function canEdit(user, doc) {",
+    "  return !doc.locked || user.id === doc.owner",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return !doc.locked && user.id === doc.owner",
+   "clue": {
+    "call": "canEdit({ id: 1 }, { locked: true, owner: 1 })",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "canEdit:1:14:!==",
+   "name": "canEdit",
+   "lines": [
+    "function canEdit(user, doc) {",
+    "  return !doc.locked && user.id !== doc.owner",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return !doc.locked && user.id === doc.owner",
+   "clue": {
+    "call": "canEdit({ id: 1 }, { locked: false, owner: 1 })",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "isBlank:1:3:drop",
+   "name": "isBlank",
+   "lines": [
+    "function isBlank(text) {",
+    "  return text.trim()",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return !text.trim()",
+   "clue": {
+    "call": "isBlank('')",
+    "expected": "true",
+    "actual": "\"\""
+   },
+   "difficulty": 1
   }
  ],
  "snippets": [
@@ -5510,6 +5663,18 @@
   {
    "name": "canMove",
    "source": "function canMove(x, y, size) {\n  return x >= 0 && y >= 0 && x < size && y < size\n}"
+  },
+  {
+   "name": "isOdd",
+   "source": "function isOdd(n) {\n  return !(n % 2 === 0)\n}"
+  },
+  {
+   "name": "canEdit",
+   "source": "function canEdit(user, doc) {\n  return !doc.locked && user.id === doc.owner\n}"
+  },
+  {
+   "name": "isBlank",
+   "source": "function isBlank(text) {\n  return !text.trim()\n}"
   }
  ]
 }

@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs'
 import { request } from 'node:http'
 import { connect as tcp } from 'node:net'
 import { after, before, test } from 'node:test'
-import { functionName, mutants, sameCode } from '../shared/factory.ts'
+import { change, functionName, kindOf, mutants, sameCode } from '../shared/factory.ts'
 import { failure } from '../server/puzzles.ts'
 import { plan } from '../server/rooms.ts'
 import { acceptKey, frame } from '../server/ws.ts'
@@ -230,6 +230,19 @@ test('a custom game is rebuilt on the server, can be watched, and replays from i
   assert.equal((await fetch(`http://localhost:${PORT}/api/replays/0000000000`)).status, 404)
   host.close()
   fan.close()
+})
+
+test('Bug School hands out three practice bugs of the chosen kind', async () => {
+  for (const kind of ['boolean', 'not', 'logic', 'equal', 'edge', 'number', 'math', 'count']) {
+    const lesson = await (await fetch(`http://localhost:${PORT}/api/lessons/${kind}`)).json()
+    assert.equal(lesson.puzzles.length, 3, kind)
+    assert.equal(new Set(lesson.puzzles.map((puzzle: Message) => puzzle.name)).size, 3, kind)
+    for (const puzzle of lesson.puzzles) {
+      assert.equal(kindOf(change(puzzle.lines[puzzle.bug], puzzle.fix).from), kind)
+      assert.equal(puzzle.choices.filter((choice: string) => sameCode(choice, puzzle.fix)).length, 1)
+    }
+  }
+  assert.equal((await fetch(`http://localhost:${PORT}/api/lessons/nonsense`)).status, 404)
 })
 
 test('only the sandbox worker may evaluate code', async () => {

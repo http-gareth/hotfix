@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import { readFileSync } from 'node:fs'
-import { functionName, mutants, sameCode, tokenize } from '../shared/factory.ts'
-import type { Puzzle } from '../shared/factory.ts'
+import { change, functionName, kindOf, mutants, sameCode, tokenize } from '../shared/factory.ts'
+import type { Kind, Puzzle } from '../shared/factory.ts'
 import type { Stats } from './puzzles.ts'
 import type { Handlers, Socket } from './ws.ts'
 
@@ -144,6 +144,15 @@ const choices = (puzzle: Puzzle, pool: Puzzle[]) => {
   const wrong = pool.filter(other => other.name === puzzle.name && other.bug === puzzle.bug).map(other => other.lines[other.bug])
   const decoys = [...new Set(wrong)].filter(line => !sameCode(line, puzzle.fix) && !sameCode(line, shown))
   return shuffle([puzzle.fix, ...shuffle(decoys).slice(0, 3)])
+}
+
+const byKind = Map.groupBy(BANK.puzzles, puzzle => kindOf(change(puzzle.lines[puzzle.bug], puzzle.fix).from))
+
+export const lesson = (kind: string) => {
+  const pool = byKind.get(kind as Kind)
+  if (!pool) return null
+  const picked = [...new Map(shuffle(pool).map(puzzle => [puzzle.name, puzzle])).values()].slice(0, 3)
+  return { kind, puzzles: picked.map(puzzle => ({ name: puzzle.name, lines: puzzle.lines, bug: puzzle.bug, fix: puzzle.fix, clue: puzzle.clue, choices: choices(puzzle, BANK.puzzles) })) }
 }
 
 const target = (round: Round) => round.kind === 'race' ? round.snippet.source : ''

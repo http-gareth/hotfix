@@ -37,6 +37,27 @@ const swaps = (token: string): [string, number][] => {
   return []
 }
 
+export type Kind = 'boolean' | 'not' | 'logic' | 'equal' | 'edge' | 'number' | 'math' | 'count'
+
+export const change = (bug: string, fix: string) => {
+  const broken = tokenize(bug).filter(token => token.trim())
+  const right = tokenize(fix).filter(token => token.trim())
+  const at = right.findIndex((token, index) => token !== broken[index])
+  return { from: right[at] ?? '', to: broken.length < right.length ? '' : broken[at] ?? '' }
+}
+
+export const kindOf = (from: string): Kind | null => {
+  if (from === 'true' || from === 'false') return 'boolean'
+  if (from === '!') return 'not'
+  if (from === '&&' || from === '||') return 'logic'
+  if (from === '===' || from === '!==') return 'equal'
+  if (['<', '<=', '>', '>='].includes(from)) return 'edge'
+  if (/^\d+$/.test(from)) return 'number'
+  if (['+', '-', '*', '/'].includes(from)) return 'math'
+  if (['++', '--', '+=', '-='].includes(from)) return 'count'
+  return null
+}
+
 export const functionName = (source: string) => source.match(/function\s+([A-Za-z_$][\w$]*)/)?.[1] ?? 'yourCode'
 
 export const mutants = (name: string, source: string): Mutant[] => {

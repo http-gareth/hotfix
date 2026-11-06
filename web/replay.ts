@@ -1,3 +1,5 @@
+import { $, element } from './dom.ts'
+
 type HuntRound = { kind: 'hunt', name: string, lines: string[], bug: number, fix: string, clue: { call: string, expected: string, actual: string }, seconds: number }
 type RaceRound = { kind: 'race', name: string, text: string, seconds: number }
 type Match = {
@@ -9,13 +11,6 @@ type Seat = { name: string, bot: boolean, progress: number, score: number, round
 const KINDS = { hunt: 'HUNT!', race: 'RACE!' }
 const LEVELS: Record<string, string> = { chill: 'Chill', normal: 'Normal', hardcore: 'Hardcore' }
 const MODES: Record<string, string> = { solo: 'Solo game', daily: 'Daily challenge', party: 'Party game' }
-const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T
-const element = (tag: string, className = '', text = '') => {
-  const node = document.createElement(tag)
-  node.className = className
-  node.textContent = text
-  return node
-}
 const minutes = (ms: number) => `${Math.floor(ms / 60_000)}:${String(Math.floor(ms / 1000) % 60).padStart(2, '0')}`
 const ordinal = (place: number) => ['1st', '2nd', '3rd'][place] ?? `${place + 1}th`
 

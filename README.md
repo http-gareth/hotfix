@@ -11,6 +11,8 @@ Pick a speed first. **Chill** gives 90-second rounds, the easiest bugs, shorter 
 
 Play solo against bots, take the daily challenge (the same puzzles for everyone that day, always on Normal so the leaderboard is fair), or share a 4-letter code and play with friends. Anyone with the code can also watch a game live. Every finished game gets a replay link, and **Make your own** turns your own function and tests into a game.
 
+New to code? **Bug School** has eight short comic-strip lessons, one for each kind of bug the game plants (`&&` vs `||`, `<` vs `<=`, a missing `!`, off-by-one numbers and more). Each ends with three untimed fixes on real puzzles and a plain-words explanation of why the fix works. Every hunt in a normal game explains its bug the same way.
+
 ## How it's built
 
 One Node.js 22 process, written in TypeScript, with **zero dependencies**.
@@ -26,7 +28,7 @@ flowchart LR
 ```
 
 - **The server is the referee.** Clients send inputs; the server owns the clock and decides every score. A player only sees fix options after finding the broken line, and the real fix is mixed in with other bugs the factory proved fail the tests.
-- **A bug factory makes the puzzles.** It plants every one-token bug it can in each function, runs the function's tests in a sandbox, and keeps only bugs that change behaviour. Across 44 functions it tried 295 bugs, threw out 18 that changed nothing, and kept 277 puzzles.
+- **A bug factory makes the puzzles.** It plants every one-token bug it can in each function, runs the function's tests in a sandbox, and keeps only bugs that change behaviour. Across 47 functions it tried 304 bugs, threw out 18 that changed nothing, and kept 286 puzzles. Every puzzle belongs to one of Bug School's eight lessons.
 - **Player code never runs on the server.** Fixes are compared token by token. Custom games are tested in a Web Worker in the creator's own browser, and the server re-plants every bug from the source text before trusting any of it.
 - **Anti-cheat runs on server time.** Pastes, superhuman typing and guessing every fix are caught or slowed down.
 - **Every input is logged.** Finished games replay move by move from the log, and the best run on each snippet races again as a ghost.
@@ -79,6 +81,7 @@ Replies on the live server took 255 ms at p95, most of it the network trip from 
 | `server/rooms.ts` | Rooms, rounds, scoring, bots, anti-cheat, spectators, event log and replays |
 | `server/index.ts` | HTTP and WebSocket entry point |
 | `web/` | The game, the replay page and the architecture page |
+| `web/lessons.ts`, `web/school.ts` | Bug School: the lessons, explanations and untimed practice |
 | `web/sandbox.ts` | The only code allowed to evaluate a player's function, in a Web Worker |
 | `web/art/` | Hand-drawn SVG artwork |
 | `scripts/` | Puzzle builder and load test |

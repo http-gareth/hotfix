@@ -52,6 +52,7 @@
           <button type="button" class="pop daily" id="daily" title="Always Normal speed, so the leaderboard is fair">Daily challenge<span class="streak" id="streak"></span></button>
           <button type="button" class="pop friends" id="party">Play with friends</button>
           <button type="button" class="pop go" id="make">Make your own</button>
+          <button type="button" class="pop learn" id="learn">Bug School</button>
         </div>
         <form class="code-form" id="join-form">
           <label for="join-code">Got a code?</label>
@@ -68,6 +69,47 @@
         <div><h2>Today's top scores</h2><ol id="daily-board"></ol></div>
         <div><h2>Fastest fingers</h2><ol id="fast-board"></ol></div>
       </section>
+    </section>
+
+    <section class="school" id="school" hidden>
+      <div class="school-list" id="school-list">
+        <header class="panel school-head">
+          <button type="button" class="back" id="school-home">← Back to the game</button>
+          <h1>Bug School</h1>
+          <p>Eight short lessons on the bugs The Regression plants most. Read three panels, then fix three real bugs with no clock running. Fix them first try to earn stars.</p>
+        </header>
+        <div class="lesson-grid" id="lessons"></div>
+      </div>
+      <article class="panel lesson" id="lesson" hidden>
+        <button type="button" class="back" id="lesson-back">← All lessons</button>
+        <p class="caption" id="lesson-step"></p>
+        <h2 class="lesson-title" id="lesson-title"></h2>
+        <div class="lesson-panels" id="lesson-panels"></div>
+        <p class="rule" id="lesson-rule"></p>
+        <button type="button" class="pop go" id="practice-start">Fix 3 real bugs</button>
+        <p class="toast" id="lesson-error" role="status"></p>
+      </article>
+      <article class="panel practice" id="practice" hidden>
+        <div class="head">
+          <div class="round" id="practice-count"></div>
+          <button type="button" class="back" id="practice-back">← Back to the lesson</button>
+        </div>
+        <div class="test" id="practice-test"></div>
+        <div class="code" id="practice-code"></div>
+        <div class="choices" id="practice-choices" hidden></div>
+        <p class="say" id="practice-say" role="status" aria-live="polite"></p>
+        <p class="reveal" id="practice-why" hidden></p>
+        <div class="buttons"><button type="button" class="pop" id="practice-next" hidden>Next bug</button></div>
+      </article>
+      <article class="panel done" id="done" hidden>
+        <h2 class="shout">Lesson complete!</h2>
+        <p class="stars big-stars" id="done-stars"></p>
+        <p id="done-text"></p>
+        <div class="buttons">
+          <button type="button" class="pop go" id="done-next">Next lesson</button>
+          <button type="button" class="pop small" id="done-all">All lessons</button>
+        </div>
+      </article>
     </section>
 
     <section class="panel workshop" id="workshop" hidden>
