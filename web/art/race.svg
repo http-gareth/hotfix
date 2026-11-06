@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 150">
+  <defs>
+    <pattern id="dots" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(20)">
+      <circle cx="4" cy="4" r="1.8" fill="#e8333f" opacity="0.32"/>
+    </pattern>
+    <g id="key">
+      <rect x="-26" y="-24" width="52" height="50" rx="9" fill="#17141f"/>
+      <rect x="-26" y="-28" width="52" height="46" rx="9" fill="#fff" stroke="#17141f" stroke-width="5"/>
+      <rect x="-17" y="-20" width="34" height="28" rx="6" fill="#f1ece0"/>
+    </g>
+  </defs>
+  <rect width="240" height="150" fill="url(#dots)"/>
+  <g stroke="#17141f" stroke-width="5" stroke-linecap="round">
+    <path d="M8 46h40M2 66h56M14 86h34M4 106h48M20 126h26"/>
+  </g>
+  <g transform="translate(86 92) rotate(-10)">
+    <use href="#key"/>
+    <text y="0" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="26" font-weight="700" fill="#17141f">{</text>
+  </g>
+  <g transform="translate(146 70) rotate(6)">
+    <use href="#key"/>
+    <text y="0" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="26" font-weight="700" fill="#17141f">;</text>
+  </g>
+  <g transform="translate(204 100) rotate(-4)">
+    <use href="#key"/>
+    <text y="0" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="26" font-weight="700" fill="#17141f">}</text>
+  </g>
+  <path d="M120 22 128 8M140 26 152 12M104 30 104 14" stroke="#ffd23f" stroke-width="6" stroke-linecap="round"/>
+  <path d="M120 22 128 8M140 26 152 12M104 30 104 14" stroke="#17141f" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg>

@@ -1,0 +1,16 @@
+{
+ "at": "2026-11-06T07:54:00.528Z",
+ "target": "localhost:5320",
+ "players": 200,
+ "rooms": 50,
+ "seconds": 60,
+ "messagesPerSecond": 2034,
+ "inputsPerSecond": 267,
+ "replyP50Ms": 0,
+ "replyP95Ms": 5,
+ "tickP95Ms": 6.81,
+ "cpuPeak": 15,
+ "memoryPeakMb": 100,
+ "socketsPeak": 200,
+ "errors": 0
+}

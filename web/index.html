@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HOTFIX!</title>
+  <meta name="description" content="A live multiplayer coding game: find the bug, fix it, and out-type your friends.">
+  <meta name="theme-color" content="#ffd23f">
+  <link rel="icon" href="/web/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap">
+  <link rel="stylesheet" href="/web/style.css">
+  <script type="module" src="/web/app.ts"></script>
+</head>
+<body>
+  <button type="button" class="mute" id="mute" aria-pressed="false" aria-label="Mute sounds"><img id="mute-icon" src="/web/art/sound.svg" alt="" width="26" height="26"></button>
+  <main class="wrap">
+    <section class="home" id="home">
+      <header class="panel cover">
+        <div class="masthead">
+          <p class="issue">No. <b id="issue">1</b><span id="dateline"></span></p>
+          <h1 class="logo">HOTFIX!</h1>
+          <p class="price">Daily<br>edition</p>
+        </div>
+        <div class="splash">
+          <p class="caption">Meanwhile, in production…</p>
+          <img class="villain" src="/web/art/regression.svg" alt="The Regression, a grinning red beetle with a purple head" width="260" height="260">
+          <p class="bubble">Ha! Nobody ships a fix before I break it again!</p>
+          <p class="caption bottom">The Regression is loose. Only you can patch it.</p>
+          <span class="barcode" aria-hidden="true"></span>
+        </div>
+      </header>
+
+      <section class="panel start" aria-label="Start a game">
+        <fieldset class="levels">
+          <legend>Pick your speed</legend>
+          <label><input type="radio" name="level" value="chill"><b>Chill</b><small>90s rounds, easy bugs, hints</small></label>
+          <label><input type="radio" name="level" value="normal" checked><b>Normal</b><small>60s rounds, a bit of a challenge</small></label>
+          <label><input type="radio" name="level" value="hardcore"><b>Hardcore</b><small>40s rounds, nasty bugs</small></label>
+        </fieldset>
+        <label class="name">Your name <input id="name" maxlength="16" autocomplete="nickname" placeholder="Player"></label>
+        <div class="join-banner" id="invite" hidden>
+          <strong>You've been invited to game <span id="invite-code"></span>!</strong>
+          <div class="buttons">
+            <button type="button" class="pop go" id="accept">Join the game</button>
+            <button type="button" class="pop small" id="accept-watch">Just watch</button>
+          </div>
+        </div>
+        <div class="buttons">
+          <button type="button" class="pop" id="solo">Play solo</button>
+          <button type="button" class="pop daily" id="daily" title="Always Normal speed, so the leaderboard is fair">Daily challenge<span class="streak" id="streak"></span></button>
+          <button type="button" class="pop friends" id="party">Play with friends</button>
+          <button type="button" class="pop go" id="make">Make your own</button>
+        </div>
+        <form class="code-form" id="join-form">
+          <label for="join-code">Got a code?</label>
+          <input id="join-code" maxlength="4" autocomplete="off" autocapitalize="characters" placeholder="ABCD">
+          <button type="submit" class="pop small">Join</button>
+          <button type="button" class="pop small watch" id="watch">Watch</button>
+        </form>
+        <p class="toast" id="toast" role="status" aria-live="polite"></p>
+      </section>
+
+      <article class="panel story"><img src="/web/art/hunt.svg" alt="" width="240" height="150"><h2 class="sfx hunt">Hunt!</h2><p>A test is failing. Tap the broken line, fix it, hit Enter.</p></article>
+      <article class="panel story"><img src="/web/art/race.svg" alt="" width="240" height="150"><h2 class="sfx race">Race!</h2><p>Type real code faster than everyone. Enter jumps the indent for you.</p></article>
+      <section class="panel boards" aria-label="Leaderboards">
+        <div><h2>Today's top scores</h2><ol id="daily-board"></ol></div>
+        <div><h2>Fastest fingers</h2><ol id="fast-board"></ol></div>
+      </section>
+    </section>
+
+    <section class="panel workshop" id="workshop" hidden>
+      <h2>Make a game from your code</h2>
+      <p>Paste one JavaScript function and a few tests. The bug factory plants every small bug it can, runs your tests against each one, and keeps the bugs your tests catch. Your code runs in a sandbox in your own browser, never on the server.</p>
+      <label for="byo-code">Your function</label>
+      <textarea id="byo-code" spellcheck="false" autocapitalize="off" rows="8">function accuracy(hits, misses) {
+  if (hits === 0 &amp;&amp; misses === 0) return 0
+  const total = hits + misses
+  return Math.round(hits / total * 100)
+}</textarea>
+      <label for="byo-tests">Tests, one per line: <code>call == expected</code></label>
+      <textarea id="byo-tests" spellcheck="false" autocapitalize="off" rows="4">accuracy(3, 1) == 75
+accuracy(0, 0) == 0
+accuracy(1, 0) == 100
+accuracy(0, 4) == 0</textarea>
+      <div class="buttons">
+        <button type="button" class="pop" id="byo-run">Find the bugs!</button>
+        <button type="button" class="pop small" id="byo-back">Back</button>
+      </div>
+      <p class="byo-status" id="byo-status" role="status" aria-live="polite"></p>
+      <div class="buttons" id="byo-play" hidden>
+        <button type="button" class="pop" id="byo-solo">Play it solo</button>
+        <button type="button" class="pop friends" id="byo-party">Play it with friends</button>
+      </div>
+    </section>
+
+    <section class="panel lobby" id="lobby" hidden>
+      <p class="level-tag" id="lobby-level"></p>
+      <h2>Game code</h2>
+      <strong class="room-code" id="room-code"></strong>
+      <div class="share">
+        <input id="share-link" readonly aria-label="Invite link">
+        <button type="button" class="pop small" id="copy">Copy invite link</button>
+      </div>
+      <h2>Players</h2>
+      <ol class="roster" id="roster"></ol>
+      <button type="button" class="pop go big" id="start">Start the game!</button>
+      <p class="waiting" id="waiting">Waiting for the host to start…</p>
+      <p class="hint">Playing on your own? Start anyway and bots will join you.</p>
+    </section>
+
+    <section class="game" id="play" hidden>
+      <div class="panel arena">
+        <div class="head">
+          <div class="round" id="round"></div>
+          <span class="watchers" id="watchers"></span>
+          <div class="clock" id="clock">–</div>
+        </div>
+        <div id="hunt" hidden>
+          <div class="test" id="test"></div>
+          <div class="code" id="code"></div>
+          <div class="choices" id="choices" hidden></div>
+          <p class="say" id="say"></p>
+        </div>
+        <div id="race" hidden>
+          <div class="ghost" id="ghost" hidden><img src="/web/art/ghost.svg" alt="" width="22" height="22"><span id="ghost-name"></span><div class="bar"><i id="ghost-bar"></i></div></div>
+          <div class="racecode" id="racecode"></div>
+          <textarea class="typer" id="typer" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off" placeholder="Start typing here…"></textarea>
+          <div class="keys" id="keys" hidden></div>
+          <p class="say" id="race-say">Type it exactly. Enter jumps to the next line and skips the indent for you.</p>
+        </div>
+        <div class="overlay" id="overlay" hidden>
+          <strong class="shout" id="overlay-word"></strong>
+          <p id="overlay-text"></p>
+        </div>
+      </div>
+      <aside class="players" id="players" aria-label="Scores"></aside>
+    </section>
+
+    <section class="panel over" id="over" hidden>
+      <h1 id="final-word"></h1>
+      <ol class="standings" id="standings"></ol>
+      <div class="buttons">
+        <button type="button" class="pop go" id="again">Play again</button>
+        <a class="pop daily" id="replay-link" href="/" target="_blank" rel="noopener" hidden>Watch the replay</a>
+        <button type="button" class="pop" id="leave">Home</button>
+      </div>
+      <p class="waiting" id="again-wait">Waiting for the host to start another game…</p>
+    </section>
+  </main>
+  <footer class="foot">Every puzzle is real code with a real bug, planted and verified by the game's own bug factory. <a href="/web/architecture.html">See how it's built</a></footer>
+</body>
+</html>

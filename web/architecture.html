@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>How HOTFIX! works</title>
+  <meta name="description" content="The architecture behind HOTFIX!: an authoritative real-time game server, a hand-written WebSocket gateway and a mutation-testing bug factory, with live numbers.">
+  <meta name="theme-color" content="#ffd23f">
+  <link rel="icon" href="/web/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap">
+  <link rel="stylesheet" href="/web/style.css">
+  <script type="module" src="/web/architecture.ts"></script>
+</head>
+<body>
+  <main class="wrap docs">
+    <header class="panel intro">
+      <a class="back" href="/">← Back to the game</a>
+      <h1>Under the hood</h1>
+      <p>HOTFIX! is one small Node.js server written in TypeScript with <strong>zero dependencies</strong>. Everything below is the real running system, and the numbers update live.</p>
+    </header>
+
+    <section class="panel">
+      <h2>The live system</h2>
+      <div class="flow">
+        <article class="box"><h3>Your browser</h3><p>Draws the game and sends only what you do: taps, fixes and keystrokes. It never knows the answer.</p></article>
+        <span class="arrow" aria-hidden="true">⇄</span>
+        <article class="box"><h3>WebSocket gateway</h3><p>Written from the RFC 6455 spec: handshake, masking, size and rate limits, heartbeats, same-site only.</p>
+          <dl><div><dt>Open sockets</dt><dd data-metric="sockets.open">–</dd></div><div><dt>Frames in / out</dt><dd><span data-metric="sockets.framesIn">–</span> / <span data-metric="sockets.framesOut">–</span></dd></div><div><dt>Refused</dt><dd data-metric="sockets.rejected">–</dd></div></dl></article>
+        <span class="arrow" aria-hidden="true">⇄</span>
+        <article class="box hot"><h3>Room engine</h3><p>The referee. Owns every room's state and clock, ticks 10 times a second and decides every score.</p>
+          <dl><div><dt>Rooms</dt><dd data-metric="rooms">–</dd></div><div><dt>Players online</dt><dd data-metric="players">–</dd></div><div><dt>Watching</dt><dd data-metric="watchers">–</dd></div><div><dt>Tick (p95)</dt><dd><span data-metric="tickP95">–</span> ms</dd></div></dl></article>
+      </div>
+      <div class="flow">
+        <article class="box"><h3>Bug factory</h3><p>Plants every one-token bug in real functions, runs their tests in a sandbox, and keeps only bugs that break something.</p>
+          <dl><div><dt>Bugs tried</dt><dd data-metric="bank.candidates">–</dd></div><div><dt>Changed nothing</dt><dd data-metric="bank.equivalent">–</dd></div><div><dt>Real puzzles</dt><dd data-metric="bank.kept">–</dd></div></dl></article>
+        <span class="arrow" aria-hidden="true">→</span>
+        <article class="box"><h3>Anti-cheat</h3><p>Times every keystroke on the server. Pastes and superhuman speeds don't count.</p>
+          <dl><div><dt>Pastes blocked</dt><dd data-metric="pastes">–</dd></div><div><dt>Too fast to be human</dt><dd data-metric="flagged">–</dd></div></dl></article>
+        <span class="arrow" aria-hidden="true">→</span>
+        <article class="box"><h3>Event log</h3><p>Every input is recorded with server time. Finished games replay move by move from it, and the best runs come back as ghosts in later races.</p>
+          <dl><div><dt>Events recorded</dt><dd data-metric="events">–</dd></div><div><dt>Matches played</dt><dd data-metric="matches">–</dd></div><div><dt>Replays kept</dt><dd data-metric="replays">–</dd></div></dl></article>
+      </div>
+      <div class="flow">
+        <article class="box"><h3>Your browser's sandbox</h3><p>"Make your own" runs your function and tests in a locked Web Worker in your own browser, stopped after one second. Only that worker may evaluate code.</p></article>
+        <span class="arrow" aria-hidden="true">→</span>
+        <article class="box"><h3>Puzzle check</h3><p>The server never runs your code. It re-plants every bug from your code's text, keeps only the puzzles it can rebuild exactly, and drops anything forged.</p></article>
+      </div>
+      <p class="server-line">Server right now: <strong><span data-metric="cpu">–</span>% CPU</strong> · <strong><span data-metric="memoryMb">–</span> MB</strong> memory · up <strong data-metric="uptime">–</strong></p>
+    </section>
+
+    <section class="panel">
+      <h2>Load test</h2>
+      <p id="load-about">Run <code>npm run load</code> to fill this in.</p>
+      <div class="flow" id="load" hidden>
+        <article class="box"><h3>Players</h3><dl><div><dt>Simulated players</dt><dd data-load="players">–</dd></div><div><dt>Rooms</dt><dd data-load="rooms">–</dd></div><div><dt>Errors</dt><dd data-load="errors">–</dd></div></dl></article>
+        <article class="box"><h3>Speed</h3><dl><div><dt>Reply time (p95)</dt><dd><span data-load="replyP95Ms">–</span> ms</dd></div><div><dt>Server tick (p95)</dt><dd><span data-load="tickP95Ms">–</span> ms</dd></div><div><dt>Messages a second</dt><dd data-load="messagesPerSecond">–</dd></div></dl></article>
+        <article class="box"><h3>Cost</h3><dl><div><dt>Peak CPU</dt><dd><span data-load="cpuPeak">–</span>%</dd></div><div><dt>Peak memory</dt><dd><span data-load="memoryPeakMb">–</span> MB</dd></div><div><dt>Open sockets</dt><dd data-load="socketsPeak">–</dd></div></dl></article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Decisions and their tradeoffs</h2>
+      <div class="decisions">
+        <article><h3>The server is the referee</h3><p>Clients send inputs, never results. The server owns the clock, checks every answer and hands out every point. Fix options only reach a player after they find the broken line, and the real fix is mixed in with other bugs the factory proved fail the tests.</p><p class="cost"><b>Tradeoff:</b> every action costs a round trip. At 10 updates a second that is invisible for this game.</p></article>
+        <article><h3>Player code never runs on the server</h3><p>A fix is accepted when it matches the right line token for token, ignoring spacing and quote style. Nothing a player types is ever executed.</p><p class="cost"><b>Tradeoff:</b> a different-but-correct fix is rejected, so every bug is kept to a single small change and the game says so.</p></article>
+        <article><h3>Puzzles come from mutation testing</h3><p>The bug factory swaps one token at a time (<code>&lt;</code> for <code>&lt;=</code>, <code>&amp;&amp;</code> for <code>||</code>, +1 on a number), compiles the result and runs the real tests. Bugs that change nothing are thrown away; endless loops become "never finishes" clues.</p><p class="cost"><b>Tradeoff:</b> it runs at build time, not on startup, so the free server boots instantly. A test fails if the saved puzzles drift from the code.</p></article>
+        <article><h3>A WebSocket server with no library</h3><p>The protocol is small enough to own: handshake, masking, length encoding, ping and close. Unmasked, oversized, fragmented or cross-site traffic is refused.</p><p class="cost"><b>Tradeoff:</b> no compression or fragmented messages. Game messages are tiny, so neither is needed.</p></article>
+        <article><h3>Anti-cheat by server timing</h3><p>Keystrokes are timed when they arrive, so a client cannot lie about its speed. More than 25 characters at once counts as a paste, and faster than about 200 words a minute is flagged.</p><p class="cost"><b>Tradeoff:</b> a determined bot typing at human speed, or a modified client that works out which option the others are all built from, still gets through. That is the honest limit of any browser game.</p></article>
+        <article><h3>One instance, in memory</h3><p>The free host runs a single process, so rooms, logs and leaderboards live in memory and reset on a restart.</p><p class="cost"><b>To scale:</b> route each room code to one instance (sticky by code), keep leaderboards in a shared store, and rebuild any room from its event log.</p></article>
+        <article><h3>Replays come from the event log</h3><p>Nothing is filmed. A replay is the match's event log plus its rounds, played back in the browser. The same events that decided every score rebuild every frame.</p><p class="cost"><b>Tradeoff:</b> the server keeps only the last 30 replays, in memory, and bots' typing is interpolated between their recorded finishes.</p></article>
+        <article><h3>Your code runs in your browser</h3><p>Custom games are tested in a Web Worker in the creator's own browser. The server only receives puzzle IDs and clues, re-plants the bugs from the source text, and rejects anything it can't rebuild.</p><p class="cost"><b>Tradeoff:</b> the server has to trust the clue text, but only the creator's own room ever sees it.</p></article>
+      </div>
+    </section>
+  </main>
+  <footer class="foot"><a href="https://github.com/http-gareth/hotfix">Read the code on GitHub</a></footer>
+</body>
+</html>

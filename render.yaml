@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: hotfix
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: "true"
+    startCommand: npm start
+    healthCheckPath: /api/system
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: TRUST_PROXY
+        value: "1"

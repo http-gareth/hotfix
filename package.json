@@ -1,0 +1,17 @@
+{
+  "name": "hotfix",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Find the bug, fix it, faster than your friends. A live multiplayer coding game.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --experimental-strip-types --disable-warning=ExperimentalWarning server/index.ts",
+    "puzzles": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/build-puzzles.ts",
+    "load": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/load-test.ts",
+    "test": "node --experimental-strip-types --disable-warning=ExperimentalWarning --test \"test/*.test.ts\""
+  }
+}

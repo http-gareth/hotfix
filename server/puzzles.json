@@ -1,0 +1,5515 @@
+{
+ "stats": {
+  "functions": 44,
+  "candidates": 295,
+  "broken": 0,
+  "equivalent": 18,
+  "kept": 277
+ },
+ "puzzles": [
+  {
+   "id": "chunk:2:10:1",
+   "name": "chunk",
+   "lines": [
+    "function chunk(items, size) {",
+    "  const groups = []",
+    "  for (let i = 1; i < items.length; i += size) {",
+    "    groups.push(items.slice(i, i + size))",
+    "  }",
+    "  return groups",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 0; i < items.length; i += size) {",
+   "clue": {
+    "call": "chunk([1, 2, 3, 4], 2)",
+    "expected": "[[1,2],[3,4]]",
+    "actual": "[[2,3],[4]]"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "chunk:2:15:<=",
+   "name": "chunk",
+   "lines": [
+    "function chunk(items, size) {",
+    "  const groups = []",
+    "  for (let i = 0; i <= items.length; i += size) {",
+    "    groups.push(items.slice(i, i + size))",
+    "  }",
+    "  return groups",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 0; i < items.length; i += size) {",
+   "clue": {
+    "call": "chunk([1, 2, 3, 4], 2)",
+    "expected": "[[1,2],[3,4]]",
+    "actual": "[[1,2],[3,4],[]]"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "chunk:2:24:-=",
+   "name": "chunk",
+   "lines": [
+    "function chunk(items, size) {",
+    "  const groups = []",
+    "  for (let i = 0; i < items.length; i -= size) {",
+    "    groups.push(items.slice(i, i + size))",
+    "  }",
+    "  return groups",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 0; i < items.length; i += size) {",
+   "clue": {
+    "call": "chunk([1, 2, 3, 4], 2)",
+    "expected": "[[1,2],[3,4]]",
+    "actual": "never finishes"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "chunk:3:14:-",
+   "name": "chunk",
+   "lines": [
+    "function chunk(items, size) {",
+    "  const groups = []",
+    "  for (let i = 0; i < items.length; i += size) {",
+    "    groups.push(items.slice(i, i - size))",
+    "  }",
+    "  return groups",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "    groups.push(items.slice(i, i + size))",
+   "clue": {
+    "call": "chunk([1, 2, 3, 4], 2)",
+    "expected": "[[1,2],[3,4]]",
+    "actual": "[[1,2],[]]"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "range:2:15:<=",
+   "name": "range",
+   "lines": [
+    "function range(start, end, step = 1) {",
+    "  const numbers = []",
+    "  for (let n = start; n <= end; n += step) numbers.push(n)",
+    "  return numbers",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let n = start; n < end; n += step) numbers.push(n)",
+   "clue": {
+    "call": "range(0, 4)",
+    "expected": "[0,1,2,3]",
+    "actual": "[0,1,2,3,4]"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "range:2:22:-=",
+   "name": "range",
+   "lines": [
+    "function range(start, end, step = 1) {",
+    "  const numbers = []",
+    "  for (let n = start; n < end; n -= step) numbers.push(n)",
+    "  return numbers",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let n = start; n < end; n += step) numbers.push(n)",
+   "clue": {
+    "call": "range(0, 4)",
+    "expected": "[0,1,2,3]",
+    "actual": "never finishes"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "last:1:9:+",
+   "name": "last",
+   "lines": [
+    "function last(items) {",
+    "  return items[items.length + 1]",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return items[items.length - 1]",
+   "clue": {
+    "call": "last([1, 2, 3])",
+    "expected": "3",
+    "actual": "undefined"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "last:1:11:2",
+   "name": "last",
+   "lines": [
+    "function last(items) {",
+    "  return items[items.length - 2]",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return items[items.length - 1]",
+   "clue": {
+    "call": "last([1, 2, 3])",
+    "expected": "3",
+    "actual": "2"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "last:1:11:0",
+   "name": "last",
+   "lines": [
+    "function last(items) {",
+    "  return items[items.length - 0]",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return items[items.length - 1]",
+   "clue": {
+    "call": "last([1, 2, 3])",
+    "expected": "3",
+    "actual": "undefined"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sum:1:7:1",
+   "name": "sum",
+   "lines": [
+    "function sum(numbers) {",
+    "  let total = 1",
+    "  for (const n of numbers) total += n",
+    "  return total",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  let total = 0",
+   "clue": {
+    "call": "sum([1, 2, 3])",
+    "expected": "6",
+    "actual": "7"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sum:2:15:-=",
+   "name": "sum",
+   "lines": [
+    "function sum(numbers) {",
+    "  let total = 0",
+    "  for (const n of numbers) total -= n",
+    "  return total",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (const n of numbers) total += n",
+   "clue": {
+    "call": "sum([1, 2, 3])",
+    "expected": "6",
+    "actual": "-6"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "average:1:8:!==",
+   "name": "average",
+   "lines": [
+    "function average(numbers) {",
+    "  if (numbers.length !== 0) return 0",
+    "  return numbers.reduce((total, n) => total + n, 0) / numbers.length",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (numbers.length === 0) return 0",
+   "clue": {
+    "call": "average([2, 4, 6])",
+    "expected": "4",
+    "actual": "0"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "average:1:10:1",
+   "name": "average",
+   "lines": [
+    "function average(numbers) {",
+    "  if (numbers.length === 1) return 0",
+    "  return numbers.reduce((total, n) => total + n, 0) / numbers.length",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (numbers.length === 0) return 0",
+   "clue": {
+    "call": "average([])",
+    "expected": "0",
+    "actual": "null"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "average:1:15:1",
+   "name": "average",
+   "lines": [
+    "function average(numbers) {",
+    "  if (numbers.length === 0) return 1",
+    "  return numbers.reduce((total, n) => total + n, 0) / numbers.length",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (numbers.length === 0) return 0",
+   "clue": {
+    "call": "average([])",
+    "expected": "0",
+    "actual": "1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "average:2:18:-",
+   "name": "average",
+   "lines": [
+    "function average(numbers) {",
+    "  if (numbers.length === 0) return 0",
+    "  return numbers.reduce((total, n) => total - n, 0) / numbers.length",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return numbers.reduce((total, n) => total + n, 0) / numbers.length",
+   "clue": {
+    "call": "average([2, 4, 6])",
+    "expected": "4",
+    "actual": "-4"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "average:2:23:1",
+   "name": "average",
+   "lines": [
+    "function average(numbers) {",
+    "  if (numbers.length === 0) return 0",
+    "  return numbers.reduce((total, n) => total + n, 1) / numbers.length",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return numbers.reduce((total, n) => total + n, 0) / numbers.length",
+   "clue": {
+    "call": "average([2, 4, 6])",
+    "expected": "4",
+    "actual": "4.333333333333333"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "average:2:26:*",
+   "name": "average",
+   "lines": [
+    "function average(numbers) {",
+    "  if (numbers.length === 0) return 0",
+    "  return numbers.reduce((total, n) => total + n, 0) * numbers.length",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return numbers.reduce((total, n) => total + n, 0) / numbers.length",
+   "clue": {
+    "call": "average([2, 4, 6])",
+    "expected": "4",
+    "actual": "36"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPalindrome:2:10:1",
+   "name": "isPalindrome",
+   "lines": [
+    "function isPalindrome(word) {",
+    "  const letters = word.toLowerCase()",
+    "  for (let i = 1; i < letters.length / 2; i++) {",
+    "    if (letters[i] !== letters[letters.length - 1 - i]) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 0; i < letters.length / 2; i++) {",
+   "clue": {
+    "call": "isPalindrome('ab')",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPalindrome:2:27:--",
+   "name": "isPalindrome",
+   "lines": [
+    "function isPalindrome(word) {",
+    "  const letters = word.toLowerCase()",
+    "  for (let i = 0; i < letters.length / 2; i--) {",
+    "    if (letters[i] !== letters[letters.length - 1 - i]) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 0; i < letters.length / 2; i++) {",
+   "clue": {
+    "call": "isPalindrome('Racecar')",
+    "expected": "true",
+    "actual": "never finishes"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPalindrome:3:9:===",
+   "name": "isPalindrome",
+   "lines": [
+    "function isPalindrome(word) {",
+    "  const letters = word.toLowerCase()",
+    "  for (let i = 0; i < letters.length / 2; i++) {",
+    "    if (letters[i] === letters[letters.length - 1 - i]) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "    if (letters[i] !== letters[letters.length - 1 - i]) return false",
+   "clue": {
+    "call": "isPalindrome('Racecar')",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "isPalindrome:3:17:+",
+   "name": "isPalindrome",
+   "lines": [
+    "function isPalindrome(word) {",
+    "  const letters = word.toLowerCase()",
+    "  for (let i = 0; i < letters.length / 2; i++) {",
+    "    if (letters[i] !== letters[letters.length + 1 - i]) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "    if (letters[i] !== letters[letters.length - 1 - i]) return false",
+   "clue": {
+    "call": "isPalindrome('Racecar')",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPalindrome:3:19:2",
+   "name": "isPalindrome",
+   "lines": [
+    "function isPalindrome(word) {",
+    "  const letters = word.toLowerCase()",
+    "  for (let i = 0; i < letters.length / 2; i++) {",
+    "    if (letters[i] !== letters[letters.length - 2 - i]) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "    if (letters[i] !== letters[letters.length - 1 - i]) return false",
+   "clue": {
+    "call": "isPalindrome('Racecar')",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPalindrome:3:19:0",
+   "name": "isPalindrome",
+   "lines": [
+    "function isPalindrome(word) {",
+    "  const letters = word.toLowerCase()",
+    "  for (let i = 0; i < letters.length / 2; i++) {",
+    "    if (letters[i] !== letters[letters.length - 0 - i]) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "    if (letters[i] !== letters[letters.length - 1 - i]) return false",
+   "clue": {
+    "call": "isPalindrome('Racecar')",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPalindrome:3:21:+",
+   "name": "isPalindrome",
+   "lines": [
+    "function isPalindrome(word) {",
+    "  const letters = word.toLowerCase()",
+    "  for (let i = 0; i < letters.length / 2; i++) {",
+    "    if (letters[i] !== letters[letters.length - 1 + i]) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "    if (letters[i] !== letters[letters.length - 1 - i]) return false",
+   "clue": {
+    "call": "isPalindrome('Racecar')",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPalindrome:3:29:true",
+   "name": "isPalindrome",
+   "lines": [
+    "function isPalindrome(word) {",
+    "  const letters = word.toLowerCase()",
+    "  for (let i = 0; i < letters.length / 2; i++) {",
+    "    if (letters[i] !== letters[letters.length - 1 - i]) return true",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "    if (letters[i] !== letters[letters.length - 1 - i]) return false",
+   "clue": {
+    "call": "isPalindrome('hello')",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "isPalindrome:5:3:false",
+   "name": "isPalindrome",
+   "lines": [
+    "function isPalindrome(word) {",
+    "  const letters = word.toLowerCase()",
+    "  for (let i = 0; i < letters.length / 2; i++) {",
+    "    if (letters[i] !== letters[letters.length - 1 - i]) return false",
+    "  }",
+    "  return false",
+    "}"
+   ],
+   "bug": 5,
+   "fix": "  return true",
+   "clue": {
+    "call": "isPalindrome('Racecar')",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "capitalize:1:7:1",
+   "name": "capitalize",
+   "lines": [
+    "function capitalize(text) {",
+    "  return text.charAt(1).toUpperCase() + text.slice(1)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return text.charAt(0).toUpperCase() + text.slice(1)",
+   "clue": {
+    "call": "capitalize('hello')",
+    "expected": "\"Hello\"",
+    "actual": "\"Eello\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "capitalize:1:14:-",
+   "name": "capitalize",
+   "lines": [
+    "function capitalize(text) {",
+    "  return text.charAt(0).toUpperCase() - text.slice(1)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return text.charAt(0).toUpperCase() + text.slice(1)",
+   "clue": {
+    "call": "capitalize('hello')",
+    "expected": "\"Hello\"",
+    "actual": "null"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "capitalize:1:20:2",
+   "name": "capitalize",
+   "lines": [
+    "function capitalize(text) {",
+    "  return text.charAt(0).toUpperCase() + text.slice(2)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return text.charAt(0).toUpperCase() + text.slice(1)",
+   "clue": {
+    "call": "capitalize('hello')",
+    "expected": "\"Hello\"",
+    "actual": "\"Hllo\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "capitalize:1:20:0",
+   "name": "capitalize",
+   "lines": [
+    "function capitalize(text) {",
+    "  return text.charAt(0).toUpperCase() + text.slice(0)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return text.charAt(0).toUpperCase() + text.slice(1)",
+   "clue": {
+    "call": "capitalize('hello')",
+    "expected": "\"Hello\"",
+    "actual": "\"Hhello\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "countVowels:1:7:1",
+   "name": "countVowels",
+   "lines": [
+    "function countVowels(text) {",
+    "  let count = 1",
+    "  for (const letter of text.toLowerCase()) {",
+    "    if ('aeiou'.includes(letter)) count++",
+    "  }",
+    "  return count",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  let count = 0",
+   "clue": {
+    "call": "countVowels('Hello World')",
+    "expected": "3",
+    "actual": "4"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "countVowels:3:13:--",
+   "name": "countVowels",
+   "lines": [
+    "function countVowels(text) {",
+    "  let count = 0",
+    "  for (const letter of text.toLowerCase()) {",
+    "    if ('aeiou'.includes(letter)) count--",
+    "  }",
+    "  return count",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "    if ('aeiou'.includes(letter)) count++",
+   "clue": {
+    "call": "countVowels('Hello World')",
+    "expected": "3",
+    "actual": "-3"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "largest:1:9:1",
+   "name": "largest",
+   "lines": [
+    "function largest(numbers) {",
+    "  let best = numbers[1]",
+    "  for (let i = 1; i < numbers.length; i++) {",
+    "    if (numbers[i] > best) best = numbers[i]",
+    "  }",
+    "  return best",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  let best = numbers[0]",
+   "clue": {
+    "call": "largest([7])",
+    "expected": "7",
+    "actual": "undefined"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "largest:2:10:2",
+   "name": "largest",
+   "lines": [
+    "function largest(numbers) {",
+    "  let best = numbers[0]",
+    "  for (let i = 2; i < numbers.length; i++) {",
+    "    if (numbers[i] > best) best = numbers[i]",
+    "  }",
+    "  return best",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 1; i < numbers.length; i++) {",
+   "clue": {
+    "call": "largest([3, 9, 2])",
+    "expected": "9",
+    "actual": "3"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "largest:2:23:--",
+   "name": "largest",
+   "lines": [
+    "function largest(numbers) {",
+    "  let best = numbers[0]",
+    "  for (let i = 1; i < numbers.length; i--) {",
+    "    if (numbers[i] > best) best = numbers[i]",
+    "  }",
+    "  return best",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 1; i < numbers.length; i++) {",
+   "clue": {
+    "call": "largest([3, 9, 2])",
+    "expected": "9",
+    "actual": "never finishes"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isLeapYear:1:8:401",
+   "name": "isLeapYear",
+   "lines": [
+    "function isLeapYear(year) {",
+    "  if (year % 401 === 0) return true",
+    "  if (year % 100 === 0) return false",
+    "  return year % 4 === 0",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (year % 400 === 0) return true",
+   "clue": {
+    "call": "isLeapYear(2000)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isLeapYear:1:8:399",
+   "name": "isLeapYear",
+   "lines": [
+    "function isLeapYear(year) {",
+    "  if (year % 399 === 0) return true",
+    "  if (year % 100 === 0) return false",
+    "  return year % 4 === 0",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (year % 400 === 0) return true",
+   "clue": {
+    "call": "isLeapYear(2000)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isLeapYear:1:10:!==",
+   "name": "isLeapYear",
+   "lines": [
+    "function isLeapYear(year) {",
+    "  if (year % 400 !== 0) return true",
+    "  if (year % 100 === 0) return false",
+    "  return year % 4 === 0",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (year % 400 === 0) return true",
+   "clue": {
+    "call": "isLeapYear(1900)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "isLeapYear:1:12:1",
+   "name": "isLeapYear",
+   "lines": [
+    "function isLeapYear(year) {",
+    "  if (year % 400 === 1) return true",
+    "  if (year % 100 === 0) return false",
+    "  return year % 4 === 0",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (year % 400 === 0) return true",
+   "clue": {
+    "call": "isLeapYear(2000)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isLeapYear:1:17:false",
+   "name": "isLeapYear",
+   "lines": [
+    "function isLeapYear(year) {",
+    "  if (year % 400 === 0) return false",
+    "  if (year % 100 === 0) return false",
+    "  return year % 4 === 0",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (year % 400 === 0) return true",
+   "clue": {
+    "call": "isLeapYear(2000)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "isLeapYear:2:8:101",
+   "name": "isLeapYear",
+   "lines": [
+    "function isLeapYear(year) {",
+    "  if (year % 400 === 0) return true",
+    "  if (year % 101 === 0) return false",
+    "  return year % 4 === 0",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (year % 100 === 0) return false",
+   "clue": {
+    "call": "isLeapYear(1900)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isLeapYear:2:8:99",
+   "name": "isLeapYear",
+   "lines": [
+    "function isLeapYear(year) {",
+    "  if (year % 400 === 0) return true",
+    "  if (year % 99 === 0) return false",
+    "  return year % 4 === 0",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (year % 100 === 0) return false",
+   "clue": {
+    "call": "isLeapYear(1900)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isLeapYear:2:10:!==",
+   "name": "isLeapYear",
+   "lines": [
+    "function isLeapYear(year) {",
+    "  if (year % 400 === 0) return true",
+    "  if (year % 100 !== 0) return false",
+    "  return year % 4 === 0",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (year % 100 === 0) return false",
+   "clue": {
+    "call": "isLeapYear(2024)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "isLeapYear:2:12:1",
+   "name": "isLeapYear",
+   "lines": [
+    "function isLeapYear(year) {",
+    "  if (year % 400 === 0) return true",
+    "  if (year % 100 === 1) return false",
+    "  return year % 4 === 0",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (year % 100 === 0) return false",
+   "clue": {
+    "call": "isLeapYear(1900)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isLeapYear:2:17:true",
+   "name": "isLeapYear",
+   "lines": [
+    "function isLeapYear(year) {",
+    "  if (year % 400 === 0) return true",
+    "  if (year % 100 === 0) return true",
+    "  return year % 4 === 0",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (year % 100 === 0) return false",
+   "clue": {
+    "call": "isLeapYear(1900)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "isLeapYear:3:7:5",
+   "name": "isLeapYear",
+   "lines": [
+    "function isLeapYear(year) {",
+    "  if (year % 400 === 0) return true",
+    "  if (year % 100 === 0) return false",
+    "  return year % 5 === 0",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return year % 4 === 0",
+   "clue": {
+    "call": "isLeapYear(2024)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isLeapYear:3:7:3",
+   "name": "isLeapYear",
+   "lines": [
+    "function isLeapYear(year) {",
+    "  if (year % 400 === 0) return true",
+    "  if (year % 100 === 0) return false",
+    "  return year % 3 === 0",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return year % 4 === 0",
+   "clue": {
+    "call": "isLeapYear(2024)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isLeapYear:3:9:!==",
+   "name": "isLeapYear",
+   "lines": [
+    "function isLeapYear(year) {",
+    "  if (year % 400 === 0) return true",
+    "  if (year % 100 === 0) return false",
+    "  return year % 4 !== 0",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return year % 4 === 0",
+   "clue": {
+    "call": "isLeapYear(2024)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "isLeapYear:3:11:1",
+   "name": "isLeapYear",
+   "lines": [
+    "function isLeapYear(year) {",
+    "  if (year % 400 === 0) return true",
+    "  if (year % 100 === 0) return false",
+    "  return year % 4 === 1",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return year % 4 === 0",
+   "clue": {
+    "call": "isLeapYear(2024)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "canCheckout:1:10:!==",
+   "name": "canCheckout",
+   "lines": [
+    "function canCheckout(cart, user) {",
+    "  if (cart.items.length !== 0) return false",
+    "  if (!user.signedIn) return false",
+    "  return cart.total > 0 && user.verified",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (cart.items.length === 0) return false",
+   "clue": {
+    "call": "canCheckout({ items: [1], total: 50 }, { signedIn: true, verified: true })",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "canCheckout:1:12:1",
+   "name": "canCheckout",
+   "lines": [
+    "function canCheckout(cart, user) {",
+    "  if (cart.items.length === 1) return false",
+    "  if (!user.signedIn) return false",
+    "  return cart.total > 0 && user.verified",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (cart.items.length === 0) return false",
+   "clue": {
+    "call": "canCheckout({ items: [1], total: 50 }, { signedIn: true, verified: true })",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "canCheckout:1:17:true",
+   "name": "canCheckout",
+   "lines": [
+    "function canCheckout(cart, user) {",
+    "  if (cart.items.length === 0) return true",
+    "  if (!user.signedIn) return false",
+    "  return cart.total > 0 && user.verified",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (cart.items.length === 0) return false",
+   "clue": {
+    "call": "canCheckout({ items: [], total: 0 }, { signedIn: true, verified: true })",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "canCheckout:2:4:drop",
+   "name": "canCheckout",
+   "lines": [
+    "function canCheckout(cart, user) {",
+    "  if (cart.items.length === 0) return false",
+    "  if (user.signedIn) return false",
+    "  return cart.total > 0 && user.verified",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (!user.signedIn) return false",
+   "clue": {
+    "call": "canCheckout({ items: [1], total: 50 }, { signedIn: true, verified: true })",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "canCheckout:2:12:true",
+   "name": "canCheckout",
+   "lines": [
+    "function canCheckout(cart, user) {",
+    "  if (cart.items.length === 0) return false",
+    "  if (!user.signedIn) return true",
+    "  return cart.total > 0 && user.verified",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (!user.signedIn) return false",
+   "clue": {
+    "call": "canCheckout({ items: [1], total: 50 }, { signedIn: false, verified: true })",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "canCheckout:3:11:||",
+   "name": "canCheckout",
+   "lines": [
+    "function canCheckout(cart, user) {",
+    "  if (cart.items.length === 0) return false",
+    "  if (!user.signedIn) return false",
+    "  return cart.total > 0 || user.verified",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return cart.total > 0 && user.verified",
+   "clue": {
+    "call": "canCheckout({ items: [1], total: 50 }, { signedIn: true, verified: false })",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "isAdult:1:5:>",
+   "name": "isAdult",
+   "lines": [
+    "function isAdult(age) {",
+    "  return age > 18",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return age >= 18",
+   "clue": {
+    "call": "isAdult(18)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "isAdult:1:7:19",
+   "name": "isAdult",
+   "lines": [
+    "function isAdult(age) {",
+    "  return age >= 19",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return age >= 18",
+   "clue": {
+    "call": "isAdult(18)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isAdult:1:7:17",
+   "name": "isAdult",
+   "lines": [
+    "function isAdult(age) {",
+    "  return age >= 17",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return age >= 18",
+   "clue": {
+    "call": "isAdult(17)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "truncate:1:8:<",
+   "name": "truncate",
+   "lines": [
+    "function truncate(text, max) {",
+    "  if (text.length < max) return text",
+    "  return text.slice(0, max - 1) + '…'",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (text.length <= max) return text",
+   "clue": {
+    "call": "truncate('hello', 5)",
+    "expected": "\"hello\"",
+    "actual": "\"hell…\""
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "truncate:2:7:1",
+   "name": "truncate",
+   "lines": [
+    "function truncate(text, max) {",
+    "  if (text.length <= max) return text",
+    "  return text.slice(1, max - 1) + '…'",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return text.slice(0, max - 1) + '…'",
+   "clue": {
+    "call": "truncate('hello world', 5)",
+    "expected": "\"hell…\"",
+    "actual": "\"ell…\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "truncate:2:12:+",
+   "name": "truncate",
+   "lines": [
+    "function truncate(text, max) {",
+    "  if (text.length <= max) return text",
+    "  return text.slice(0, max + 1) + '…'",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return text.slice(0, max - 1) + '…'",
+   "clue": {
+    "call": "truncate('hello world', 5)",
+    "expected": "\"hell…\"",
+    "actual": "\"hello …\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "truncate:2:14:2",
+   "name": "truncate",
+   "lines": [
+    "function truncate(text, max) {",
+    "  if (text.length <= max) return text",
+    "  return text.slice(0, max - 2) + '…'",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return text.slice(0, max - 1) + '…'",
+   "clue": {
+    "call": "truncate('hello world', 5)",
+    "expected": "\"hell…\"",
+    "actual": "\"hel…\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "truncate:2:14:0",
+   "name": "truncate",
+   "lines": [
+    "function truncate(text, max) {",
+    "  if (text.length <= max) return text",
+    "  return text.slice(0, max - 0) + '…'",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return text.slice(0, max - 1) + '…'",
+   "clue": {
+    "call": "truncate('hello world', 5)",
+    "expected": "\"hell…\"",
+    "actual": "\"hello…\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "truncate:2:17:-",
+   "name": "truncate",
+   "lines": [
+    "function truncate(text, max) {",
+    "  if (text.length <= max) return text",
+    "  return text.slice(0, max - 1) - '…'",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return text.slice(0, max - 1) + '…'",
+   "clue": {
+    "call": "truncate('hello world', 5)",
+    "expected": "\"hell…\"",
+    "actual": "null"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "binarySearch:1:7:1",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 1",
+    "  let high = sorted.length - 1",
+    "  while (low <= high) {",
+    "    const middle = Math.floor((low + high) / 2)",
+    "    if (sorted[middle] === target) return middle",
+    "    if (sorted[middle] < target) low = middle + 1",
+    "    else high = middle - 1",
+    "  }",
+    "  return -1",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  let low = 0",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 1)",
+    "expected": "0",
+    "actual": "-1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "binarySearch:2:13:2",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 0",
+    "  let high = sorted.length - 2",
+    "  while (low <= high) {",
+    "    const middle = Math.floor((low + high) / 2)",
+    "    if (sorted[middle] === target) return middle",
+    "    if (sorted[middle] < target) low = middle + 1",
+    "    else high = middle - 1",
+    "  }",
+    "  return -1",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  let high = sorted.length - 1",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 9)",
+    "expected": "4",
+    "actual": "-1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "binarySearch:3:6:<",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 0",
+    "  let high = sorted.length - 1",
+    "  while (low < high) {",
+    "    const middle = Math.floor((low + high) / 2)",
+    "    if (sorted[middle] === target) return middle",
+    "    if (sorted[middle] < target) low = middle + 1",
+    "    else high = middle - 1",
+    "  }",
+    "  return -1",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  while (low <= high) {",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 9)",
+    "expected": "4",
+    "actual": "-1"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "binarySearch:4:14:-",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 0",
+    "  let high = sorted.length - 1",
+    "  while (low <= high) {",
+    "    const middle = Math.floor((low - high) / 2)",
+    "    if (sorted[middle] === target) return middle",
+    "    if (sorted[middle] < target) low = middle + 1",
+    "    else high = middle - 1",
+    "  }",
+    "  return -1",
+    "}"
+   ],
+   "bug": 4,
+   "fix": "    const middle = Math.floor((low + high) / 2)",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 7)",
+    "expected": "3",
+    "actual": "-1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "binarySearch:4:19:*",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 0",
+    "  let high = sorted.length - 1",
+    "  while (low <= high) {",
+    "    const middle = Math.floor((low + high) * 2)",
+    "    if (sorted[middle] === target) return middle",
+    "    if (sorted[middle] < target) low = middle + 1",
+    "    else high = middle - 1",
+    "  }",
+    "  return -1",
+    "}"
+   ],
+   "bug": 4,
+   "fix": "    const middle = Math.floor((low + high) / 2)",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 7)",
+    "expected": "3",
+    "actual": "never finishes"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "binarySearch:4:21:3",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 0",
+    "  let high = sorted.length - 1",
+    "  while (low <= high) {",
+    "    const middle = Math.floor((low + high) / 3)",
+    "    if (sorted[middle] === target) return middle",
+    "    if (sorted[middle] < target) low = middle + 1",
+    "    else high = middle - 1",
+    "  }",
+    "  return -1",
+    "}"
+   ],
+   "bug": 4,
+   "fix": "    const middle = Math.floor((low + high) / 2)",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 7)",
+    "expected": "3",
+    "actual": "never finishes"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "binarySearch:5:9:!==",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 0",
+    "  let high = sorted.length - 1",
+    "  while (low <= high) {",
+    "    const middle = Math.floor((low + high) / 2)",
+    "    if (sorted[middle] !== target) return middle",
+    "    if (sorted[middle] < target) low = middle + 1",
+    "    else high = middle - 1",
+    "  }",
+    "  return -1",
+    "}"
+   ],
+   "bug": 5,
+   "fix": "    if (sorted[middle] === target) return middle",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 7)",
+    "expected": "3",
+    "actual": "2"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "binarySearch:6:20:-",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 0",
+    "  let high = sorted.length - 1",
+    "  while (low <= high) {",
+    "    const middle = Math.floor((low + high) / 2)",
+    "    if (sorted[middle] === target) return middle",
+    "    if (sorted[middle] < target) low = middle - 1",
+    "    else high = middle - 1",
+    "  }",
+    "  return -1",
+    "}"
+   ],
+   "bug": 6,
+   "fix": "    if (sorted[middle] < target) low = middle + 1",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 7)",
+    "expected": "3",
+    "actual": "never finishes"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "binarySearch:6:22:2",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 0",
+    "  let high = sorted.length - 1",
+    "  while (low <= high) {",
+    "    const middle = Math.floor((low + high) / 2)",
+    "    if (sorted[middle] === target) return middle",
+    "    if (sorted[middle] < target) low = middle + 2",
+    "    else high = middle - 1",
+    "  }",
+    "  return -1",
+    "}"
+   ],
+   "bug": 6,
+   "fix": "    if (sorted[middle] < target) low = middle + 1",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 7)",
+    "expected": "3",
+    "actual": "-1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "binarySearch:6:22:0",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 0",
+    "  let high = sorted.length - 1",
+    "  while (low <= high) {",
+    "    const middle = Math.floor((low + high) / 2)",
+    "    if (sorted[middle] === target) return middle",
+    "    if (sorted[middle] < target) low = middle + 0",
+    "    else high = middle - 1",
+    "  }",
+    "  return -1",
+    "}"
+   ],
+   "bug": 6,
+   "fix": "    if (sorted[middle] < target) low = middle + 1",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 9)",
+    "expected": "4",
+    "actual": "never finishes"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "binarySearch:7:9:+",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 0",
+    "  let high = sorted.length - 1",
+    "  while (low <= high) {",
+    "    const middle = Math.floor((low + high) / 2)",
+    "    if (sorted[middle] === target) return middle",
+    "    if (sorted[middle] < target) low = middle + 1",
+    "    else high = middle + 1",
+    "  }",
+    "  return -1",
+    "}"
+   ],
+   "bug": 7,
+   "fix": "    else high = middle - 1",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 1)",
+    "expected": "0",
+    "actual": "never finishes"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "binarySearch:7:11:0",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 0",
+    "  let high = sorted.length - 1",
+    "  while (low <= high) {",
+    "    const middle = Math.floor((low + high) / 2)",
+    "    if (sorted[middle] === target) return middle",
+    "    if (sorted[middle] < target) low = middle + 1",
+    "    else high = middle - 0",
+    "  }",
+    "  return -1",
+    "}"
+   ],
+   "bug": 7,
+   "fix": "    else high = middle - 1",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 4)",
+    "expected": "-1",
+    "actual": "never finishes"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "binarySearch:9:3:+",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 0",
+    "  let high = sorted.length - 1",
+    "  while (low <= high) {",
+    "    const middle = Math.floor((low + high) / 2)",
+    "    if (sorted[middle] === target) return middle",
+    "    if (sorted[middle] < target) low = middle + 1",
+    "    else high = middle - 1",
+    "  }",
+    "  return +1",
+    "}"
+   ],
+   "bug": 9,
+   "fix": "  return -1",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 4)",
+    "expected": "-1",
+    "actual": "1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "binarySearch:9:4:2",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 0",
+    "  let high = sorted.length - 1",
+    "  while (low <= high) {",
+    "    const middle = Math.floor((low + high) / 2)",
+    "    if (sorted[middle] === target) return middle",
+    "    if (sorted[middle] < target) low = middle + 1",
+    "    else high = middle - 1",
+    "  }",
+    "  return -2",
+    "}"
+   ],
+   "bug": 9,
+   "fix": "  return -1",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 4)",
+    "expected": "-1",
+    "actual": "-2"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "binarySearch:9:4:0",
+   "name": "binarySearch",
+   "lines": [
+    "function binarySearch(sorted, target) {",
+    "  let low = 0",
+    "  let high = sorted.length - 1",
+    "  while (low <= high) {",
+    "    const middle = Math.floor((low + high) / 2)",
+    "    if (sorted[middle] === target) return middle",
+    "    if (sorted[middle] < target) low = middle + 1",
+    "    else high = middle - 1",
+    "  }",
+    "  return -0",
+    "}"
+   ],
+   "bug": 9,
+   "fix": "  return -1",
+   "clue": {
+    "call": "binarySearch([1, 3, 5, 7, 9], 4)",
+    "expected": "-1",
+    "actual": "0"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "fizzBuzz:1:8:16",
+   "name": "fizzBuzz",
+   "lines": [
+    "function fizzBuzz(n) {",
+    "  if (n % 16 === 0) return 'FizzBuzz'",
+    "  if (n % 3 === 0) return 'Fizz'",
+    "  if (n % 5 === 0) return 'Buzz'",
+    "  return String(n)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (n % 15 === 0) return 'FizzBuzz'",
+   "clue": {
+    "call": "fizzBuzz(15)",
+    "expected": "\"FizzBuzz\"",
+    "actual": "\"Fizz\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "fizzBuzz:1:8:14",
+   "name": "fizzBuzz",
+   "lines": [
+    "function fizzBuzz(n) {",
+    "  if (n % 14 === 0) return 'FizzBuzz'",
+    "  if (n % 3 === 0) return 'Fizz'",
+    "  if (n % 5 === 0) return 'Buzz'",
+    "  return String(n)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (n % 15 === 0) return 'FizzBuzz'",
+   "clue": {
+    "call": "fizzBuzz(15)",
+    "expected": "\"FizzBuzz\"",
+    "actual": "\"Fizz\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "fizzBuzz:1:10:!==",
+   "name": "fizzBuzz",
+   "lines": [
+    "function fizzBuzz(n) {",
+    "  if (n % 15 !== 0) return 'FizzBuzz'",
+    "  if (n % 3 === 0) return 'Fizz'",
+    "  if (n % 5 === 0) return 'Buzz'",
+    "  return String(n)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (n % 15 === 0) return 'FizzBuzz'",
+   "clue": {
+    "call": "fizzBuzz(15)",
+    "expected": "\"FizzBuzz\"",
+    "actual": "\"Fizz\""
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "fizzBuzz:1:12:1",
+   "name": "fizzBuzz",
+   "lines": [
+    "function fizzBuzz(n) {",
+    "  if (n % 15 === 1) return 'FizzBuzz'",
+    "  if (n % 3 === 0) return 'Fizz'",
+    "  if (n % 5 === 0) return 'Buzz'",
+    "  return String(n)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (n % 15 === 0) return 'FizzBuzz'",
+   "clue": {
+    "call": "fizzBuzz(15)",
+    "expected": "\"FizzBuzz\"",
+    "actual": "\"Fizz\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "fizzBuzz:2:8:4",
+   "name": "fizzBuzz",
+   "lines": [
+    "function fizzBuzz(n) {",
+    "  if (n % 15 === 0) return 'FizzBuzz'",
+    "  if (n % 4 === 0) return 'Fizz'",
+    "  if (n % 5 === 0) return 'Buzz'",
+    "  return String(n)",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (n % 3 === 0) return 'Fizz'",
+   "clue": {
+    "call": "fizzBuzz(9)",
+    "expected": "\"Fizz\"",
+    "actual": "\"9\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "fizzBuzz:2:8:2",
+   "name": "fizzBuzz",
+   "lines": [
+    "function fizzBuzz(n) {",
+    "  if (n % 15 === 0) return 'FizzBuzz'",
+    "  if (n % 2 === 0) return 'Fizz'",
+    "  if (n % 5 === 0) return 'Buzz'",
+    "  return String(n)",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (n % 3 === 0) return 'Fizz'",
+   "clue": {
+    "call": "fizzBuzz(9)",
+    "expected": "\"Fizz\"",
+    "actual": "\"9\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "fizzBuzz:2:10:!==",
+   "name": "fizzBuzz",
+   "lines": [
+    "function fizzBuzz(n) {",
+    "  if (n % 15 === 0) return 'FizzBuzz'",
+    "  if (n % 3 !== 0) return 'Fizz'",
+    "  if (n % 5 === 0) return 'Buzz'",
+    "  return String(n)",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (n % 3 === 0) return 'Fizz'",
+   "clue": {
+    "call": "fizzBuzz(9)",
+    "expected": "\"Fizz\"",
+    "actual": "\"9\""
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "fizzBuzz:2:12:1",
+   "name": "fizzBuzz",
+   "lines": [
+    "function fizzBuzz(n) {",
+    "  if (n % 15 === 0) return 'FizzBuzz'",
+    "  if (n % 3 === 1) return 'Fizz'",
+    "  if (n % 5 === 0) return 'Buzz'",
+    "  return String(n)",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (n % 3 === 0) return 'Fizz'",
+   "clue": {
+    "call": "fizzBuzz(9)",
+    "expected": "\"Fizz\"",
+    "actual": "\"9\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "fizzBuzz:3:8:6",
+   "name": "fizzBuzz",
+   "lines": [
+    "function fizzBuzz(n) {",
+    "  if (n % 15 === 0) return 'FizzBuzz'",
+    "  if (n % 3 === 0) return 'Fizz'",
+    "  if (n % 6 === 0) return 'Buzz'",
+    "  return String(n)",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  if (n % 5 === 0) return 'Buzz'",
+   "clue": {
+    "call": "fizzBuzz(10)",
+    "expected": "\"Buzz\"",
+    "actual": "\"10\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "fizzBuzz:3:8:4",
+   "name": "fizzBuzz",
+   "lines": [
+    "function fizzBuzz(n) {",
+    "  if (n % 15 === 0) return 'FizzBuzz'",
+    "  if (n % 3 === 0) return 'Fizz'",
+    "  if (n % 4 === 0) return 'Buzz'",
+    "  return String(n)",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  if (n % 5 === 0) return 'Buzz'",
+   "clue": {
+    "call": "fizzBuzz(10)",
+    "expected": "\"Buzz\"",
+    "actual": "\"10\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "fizzBuzz:3:10:!==",
+   "name": "fizzBuzz",
+   "lines": [
+    "function fizzBuzz(n) {",
+    "  if (n % 15 === 0) return 'FizzBuzz'",
+    "  if (n % 3 === 0) return 'Fizz'",
+    "  if (n % 5 !== 0) return 'Buzz'",
+    "  return String(n)",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  if (n % 5 === 0) return 'Buzz'",
+   "clue": {
+    "call": "fizzBuzz(10)",
+    "expected": "\"Buzz\"",
+    "actual": "\"10\""
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "fizzBuzz:3:12:1",
+   "name": "fizzBuzz",
+   "lines": [
+    "function fizzBuzz(n) {",
+    "  if (n % 15 === 0) return 'FizzBuzz'",
+    "  if (n % 3 === 0) return 'Fizz'",
+    "  if (n % 5 === 1) return 'Buzz'",
+    "  return String(n)",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  if (n % 5 === 0) return 'Buzz'",
+   "clue": {
+    "call": "fizzBuzz(10)",
+    "expected": "\"Buzz\"",
+    "actual": "\"10\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "unique:3:14:true",
+   "name": "unique",
+   "lines": [
+    "function unique(items) {",
+    "  const seen = new Set()",
+    "  return items.filter(item => {",
+    "    if (seen.has(item)) return true",
+    "    seen.add(item)",
+    "    return true",
+    "  })",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "    if (seen.has(item)) return false",
+   "clue": {
+    "call": "unique([1, 2, 2, 3, 1])",
+    "expected": "[1,2,3]",
+    "actual": "[1,2,2,3,1]"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "unique:5:3:false",
+   "name": "unique",
+   "lines": [
+    "function unique(items) {",
+    "  const seen = new Set()",
+    "  return items.filter(item => {",
+    "    if (seen.has(item)) return false",
+    "    seen.add(item)",
+    "    return false",
+    "  })",
+    "}"
+   ],
+   "bug": 5,
+   "fix": "    return true",
+   "clue": {
+    "call": "unique([1, 2, 2, 3, 1])",
+    "expected": "[1,2,3]",
+    "actual": "[]"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "formatPrice:1:13:*",
+   "name": "formatPrice",
+   "lines": [
+    "function formatPrice(cents) {",
+    "  const rands = Math.floor(cents * 100)",
+    "  const rest = cents % 100",
+    "  return 'R' + rands + '.' + String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  const rands = Math.floor(cents / 100)",
+   "clue": {
+    "call": "formatPrice(1999)",
+    "expected": "\"R19.99\"",
+    "actual": "\"R199900.99\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "formatPrice:1:15:101",
+   "name": "formatPrice",
+   "lines": [
+    "function formatPrice(cents) {",
+    "  const rands = Math.floor(cents / 101)",
+    "  const rest = cents % 100",
+    "  return 'R' + rands + '.' + String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  const rands = Math.floor(cents / 100)",
+   "clue": {
+    "call": "formatPrice(500)",
+    "expected": "\"R5.00\"",
+    "actual": "\"R4.00\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "formatPrice:1:15:99",
+   "name": "formatPrice",
+   "lines": [
+    "function formatPrice(cents) {",
+    "  const rands = Math.floor(cents / 99)",
+    "  const rest = cents % 100",
+    "  return 'R' + rands + '.' + String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  const rands = Math.floor(cents / 100)",
+   "clue": {
+    "call": "formatPrice(1999)",
+    "expected": "\"R19.99\"",
+    "actual": "\"R20.99\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "formatPrice:2:11:101",
+   "name": "formatPrice",
+   "lines": [
+    "function formatPrice(cents) {",
+    "  const rands = Math.floor(cents / 100)",
+    "  const rest = cents % 101",
+    "  return 'R' + rands + '.' + String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  const rest = cents % 100",
+   "clue": {
+    "call": "formatPrice(1999)",
+    "expected": "\"R19.99\"",
+    "actual": "\"R19.80\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "formatPrice:2:11:99",
+   "name": "formatPrice",
+   "lines": [
+    "function formatPrice(cents) {",
+    "  const rands = Math.floor(cents / 100)",
+    "  const rest = cents % 99",
+    "  return 'R' + rands + '.' + String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  const rest = cents % 100",
+   "clue": {
+    "call": "formatPrice(1999)",
+    "expected": "\"R19.99\"",
+    "actual": "\"R19.19\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "formatPrice:3:5:-",
+   "name": "formatPrice",
+   "lines": [
+    "function formatPrice(cents) {",
+    "  const rands = Math.floor(cents / 100)",
+    "  const rest = cents % 100",
+    "  return 'R' - rands + '.' + String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 'R' + rands + '.' + String(rest).padStart(2, '0')",
+   "clue": {
+    "call": "formatPrice(1999)",
+    "expected": "\"R19.99\"",
+    "actual": "\"NaN.99\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "formatPrice:3:9:-",
+   "name": "formatPrice",
+   "lines": [
+    "function formatPrice(cents) {",
+    "  const rands = Math.floor(cents / 100)",
+    "  const rest = cents % 100",
+    "  return 'R' + rands - '.' + String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 'R' + rands + '.' + String(rest).padStart(2, '0')",
+   "clue": {
+    "call": "formatPrice(1999)",
+    "expected": "\"R19.99\"",
+    "actual": "\"NaN99\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "formatPrice:3:13:-",
+   "name": "formatPrice",
+   "lines": [
+    "function formatPrice(cents) {",
+    "  const rands = Math.floor(cents / 100)",
+    "  const rest = cents % 100",
+    "  return 'R' + rands + '.' - String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 'R' + rands + '.' + String(rest).padStart(2, '0')",
+   "clue": {
+    "call": "formatPrice(1999)",
+    "expected": "\"R19.99\"",
+    "actual": "null"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "formatPrice:3:22:3",
+   "name": "formatPrice",
+   "lines": [
+    "function formatPrice(cents) {",
+    "  const rands = Math.floor(cents / 100)",
+    "  const rest = cents % 100",
+    "  return 'R' + rands + '.' + String(rest).padStart(3, '0')",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 'R' + rands + '.' + String(rest).padStart(2, '0')",
+   "clue": {
+    "call": "formatPrice(1999)",
+    "expected": "\"R19.99\"",
+    "actual": "\"R19.099\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "formatPrice:3:22:1",
+   "name": "formatPrice",
+   "lines": [
+    "function formatPrice(cents) {",
+    "  const rands = Math.floor(cents / 100)",
+    "  const rest = cents % 100",
+    "  return 'R' + rands + '.' + String(rest).padStart(1, '0')",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 'R' + rands + '.' + String(rest).padStart(2, '0')",
+   "clue": {
+    "call": "formatPrice(500)",
+    "expected": "\"R5.00\"",
+    "actual": "\"R5.0\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "countdown:2:15:>=",
+   "name": "countdown",
+   "lines": [
+    "function countdown(from) {",
+    "  const steps = []",
+    "  for (let n = from; n >= 0; n--) steps.push(n)",
+    "  return [...steps, 'Liftoff!']",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let n = from; n > 0; n--) steps.push(n)",
+   "clue": {
+    "call": "countdown(3)",
+    "expected": "[3,2,1,\"Liftoff!\"]",
+    "actual": "[3,2,1,0,\"Liftoff!\"]"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "countdown:2:17:1",
+   "name": "countdown",
+   "lines": [
+    "function countdown(from) {",
+    "  const steps = []",
+    "  for (let n = from; n > 1; n--) steps.push(n)",
+    "  return [...steps, 'Liftoff!']",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let n = from; n > 0; n--) steps.push(n)",
+   "clue": {
+    "call": "countdown(3)",
+    "expected": "[3,2,1,\"Liftoff!\"]",
+    "actual": "[3,2,\"Liftoff!\"]"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "countdown:2:21:++",
+   "name": "countdown",
+   "lines": [
+    "function countdown(from) {",
+    "  const steps = []",
+    "  for (let n = from; n > 0; n++) steps.push(n)",
+    "  return [...steps, 'Liftoff!']",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let n = from; n > 0; n--) steps.push(n)",
+   "clue": {
+    "call": "countdown(3)",
+    "expected": "[3,2,1,\"Liftoff!\"]",
+    "actual": "never finishes"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isEven:1:7:3",
+   "name": "isEven",
+   "lines": [
+    "function isEven(n) {",
+    "  return n % 3 === 0",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return n % 2 === 0",
+   "clue": {
+    "call": "isEven(4)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isEven:1:7:1",
+   "name": "isEven",
+   "lines": [
+    "function isEven(n) {",
+    "  return n % 1 === 0",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return n % 2 === 0",
+   "clue": {
+    "call": "isEven(7)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isEven:1:9:!==",
+   "name": "isEven",
+   "lines": [
+    "function isEven(n) {",
+    "  return n % 2 !== 0",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return n % 2 === 0",
+   "clue": {
+    "call": "isEven(4)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "isEven:1:11:1",
+   "name": "isEven",
+   "lines": [
+    "function isEven(n) {",
+    "  return n % 2 === 1",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return n % 2 === 0",
+   "clue": {
+    "call": "isEven(4)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "canVote:1:5:>",
+   "name": "canVote",
+   "lines": [
+    "function canVote(age, registered) {",
+    "  return age > 18 && registered",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return age >= 18 && registered",
+   "clue": {
+    "call": "canVote(18, true)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "canVote:1:7:19",
+   "name": "canVote",
+   "lines": [
+    "function canVote(age, registered) {",
+    "  return age >= 19 && registered",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return age >= 18 && registered",
+   "clue": {
+    "call": "canVote(18, true)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "canVote:1:7:17",
+   "name": "canVote",
+   "lines": [
+    "function canVote(age, registered) {",
+    "  return age >= 17 && registered",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return age >= 18 && registered",
+   "clue": {
+    "call": "canVote(17, true)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "canVote:1:9:||",
+   "name": "canVote",
+   "lines": [
+    "function canVote(age, registered) {",
+    "  return age >= 18 || registered",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return age >= 18 && registered",
+   "clue": {
+    "call": "canVote(17, true)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "inRange:1:5:>",
+   "name": "inRange",
+   "lines": [
+    "function inRange(n, low, high) {",
+    "  return n > low && n <= high",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return n >= low && n <= high",
+   "clue": {
+    "call": "inRange(5, 5, 10)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "inRange:1:9:||",
+   "name": "inRange",
+   "lines": [
+    "function inRange(n, low, high) {",
+    "  return n >= low || n <= high",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return n >= low && n <= high",
+   "clue": {
+    "call": "inRange(11, 5, 10)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "inRange:1:13:<",
+   "name": "inRange",
+   "lines": [
+    "function inRange(n, low, high) {",
+    "  return n >= low && n < high",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return n >= low && n <= high",
+   "clue": {
+    "call": "inRange(10, 5, 10)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "grade:1:6:>",
+   "name": "grade",
+   "lines": [
+    "function grade(score) {",
+    "  if (score > 90) return 'A'",
+    "  if (score >= 80) return 'B'",
+    "  if (score >= 70) return 'C'",
+    "  return 'F'",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (score >= 90) return 'A'",
+   "clue": {
+    "call": "grade(90)",
+    "expected": "\"A\"",
+    "actual": "\"B\""
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "grade:1:8:91",
+   "name": "grade",
+   "lines": [
+    "function grade(score) {",
+    "  if (score >= 91) return 'A'",
+    "  if (score >= 80) return 'B'",
+    "  if (score >= 70) return 'C'",
+    "  return 'F'",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (score >= 90) return 'A'",
+   "clue": {
+    "call": "grade(90)",
+    "expected": "\"A\"",
+    "actual": "\"B\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "grade:1:8:89",
+   "name": "grade",
+   "lines": [
+    "function grade(score) {",
+    "  if (score >= 89) return 'A'",
+    "  if (score >= 80) return 'B'",
+    "  if (score >= 70) return 'C'",
+    "  return 'F'",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (score >= 90) return 'A'",
+   "clue": {
+    "call": "grade(89)",
+    "expected": "\"B\"",
+    "actual": "\"A\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "grade:2:6:>",
+   "name": "grade",
+   "lines": [
+    "function grade(score) {",
+    "  if (score >= 90) return 'A'",
+    "  if (score > 80) return 'B'",
+    "  if (score >= 70) return 'C'",
+    "  return 'F'",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (score >= 80) return 'B'",
+   "clue": {
+    "call": "grade(80)",
+    "expected": "\"B\"",
+    "actual": "\"C\""
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "grade:2:8:81",
+   "name": "grade",
+   "lines": [
+    "function grade(score) {",
+    "  if (score >= 90) return 'A'",
+    "  if (score >= 81) return 'B'",
+    "  if (score >= 70) return 'C'",
+    "  return 'F'",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (score >= 80) return 'B'",
+   "clue": {
+    "call": "grade(80)",
+    "expected": "\"B\"",
+    "actual": "\"C\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "grade:2:8:79",
+   "name": "grade",
+   "lines": [
+    "function grade(score) {",
+    "  if (score >= 90) return 'A'",
+    "  if (score >= 79) return 'B'",
+    "  if (score >= 70) return 'C'",
+    "  return 'F'",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (score >= 80) return 'B'",
+   "clue": {
+    "call": "grade(79)",
+    "expected": "\"C\"",
+    "actual": "\"B\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "grade:3:6:>",
+   "name": "grade",
+   "lines": [
+    "function grade(score) {",
+    "  if (score >= 90) return 'A'",
+    "  if (score >= 80) return 'B'",
+    "  if (score > 70) return 'C'",
+    "  return 'F'",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  if (score >= 70) return 'C'",
+   "clue": {
+    "call": "grade(70)",
+    "expected": "\"C\"",
+    "actual": "\"F\""
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "grade:3:8:71",
+   "name": "grade",
+   "lines": [
+    "function grade(score) {",
+    "  if (score >= 90) return 'A'",
+    "  if (score >= 80) return 'B'",
+    "  if (score >= 71) return 'C'",
+    "  return 'F'",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  if (score >= 70) return 'C'",
+   "clue": {
+    "call": "grade(70)",
+    "expected": "\"C\"",
+    "actual": "\"F\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "grade:3:8:69",
+   "name": "grade",
+   "lines": [
+    "function grade(score) {",
+    "  if (score >= 90) return 'A'",
+    "  if (score >= 80) return 'B'",
+    "  if (score >= 69) return 'C'",
+    "  return 'F'",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  if (score >= 70) return 'C'",
+   "clue": {
+    "call": "grade(69)",
+    "expected": "\"F\"",
+    "actual": "\"C\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "discount:1:6:||",
+   "name": "discount",
+   "lines": [
+    "function discount(total, member) {",
+    "  if (member || total >= 100) return total * 0.9",
+    "  return total",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (member && total >= 100) return total * 0.9",
+   "clue": {
+    "call": "discount(99, true)",
+    "expected": "99",
+    "actual": "89.10000000000001"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "discount:1:10:>",
+   "name": "discount",
+   "lines": [
+    "function discount(total, member) {",
+    "  if (member && total > 100) return total * 0.9",
+    "  return total",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (member && total >= 100) return total * 0.9",
+   "clue": {
+    "call": "discount(100, true)",
+    "expected": "90",
+    "actual": "100"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "discount:1:12:101",
+   "name": "discount",
+   "lines": [
+    "function discount(total, member) {",
+    "  if (member && total >= 101) return total * 0.9",
+    "  return total",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (member && total >= 100) return total * 0.9",
+   "clue": {
+    "call": "discount(100, true)",
+    "expected": "90",
+    "actual": "100"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "discount:1:12:99",
+   "name": "discount",
+   "lines": [
+    "function discount(total, member) {",
+    "  if (member && total >= 99) return total * 0.9",
+    "  return total",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (member && total >= 100) return total * 0.9",
+   "clue": {
+    "call": "discount(99, true)",
+    "expected": "99",
+    "actual": "89.10000000000001"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "discount:1:19:/",
+   "name": "discount",
+   "lines": [
+    "function discount(total, member) {",
+    "  if (member && total >= 100) return total / 0.9",
+    "  return total",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (member && total >= 100) return total * 0.9",
+   "clue": {
+    "call": "discount(100, true)",
+    "expected": "90",
+    "actual": "111.11111111111111"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sign:1:6:>=",
+   "name": "sign",
+   "lines": [
+    "function sign(n) {",
+    "  if (n >= 0) return 1",
+    "  if (n < 0) return -1",
+    "  return 0",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (n > 0) return 1",
+   "clue": {
+    "call": "sign(0)",
+    "expected": "0",
+    "actual": "1"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "sign:1:8:1",
+   "name": "sign",
+   "lines": [
+    "function sign(n) {",
+    "  if (n > 1) return 1",
+    "  if (n < 0) return -1",
+    "  return 0",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (n > 0) return 1",
+   "clue": {
+    "call": "sign(1)",
+    "expected": "1",
+    "actual": "0"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sign:1:13:2",
+   "name": "sign",
+   "lines": [
+    "function sign(n) {",
+    "  if (n > 0) return 2",
+    "  if (n < 0) return -1",
+    "  return 0",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (n > 0) return 1",
+   "clue": {
+    "call": "sign(5)",
+    "expected": "1",
+    "actual": "2"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sign:1:13:0",
+   "name": "sign",
+   "lines": [
+    "function sign(n) {",
+    "  if (n > 0) return 0",
+    "  if (n < 0) return -1",
+    "  return 0",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (n > 0) return 1",
+   "clue": {
+    "call": "sign(5)",
+    "expected": "1",
+    "actual": "0"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sign:2:6:<=",
+   "name": "sign",
+   "lines": [
+    "function sign(n) {",
+    "  if (n > 0) return 1",
+    "  if (n <= 0) return -1",
+    "  return 0",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (n < 0) return -1",
+   "clue": {
+    "call": "sign(0)",
+    "expected": "0",
+    "actual": "-1"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "sign:2:8:1",
+   "name": "sign",
+   "lines": [
+    "function sign(n) {",
+    "  if (n > 0) return 1",
+    "  if (n < 1) return -1",
+    "  return 0",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (n < 0) return -1",
+   "clue": {
+    "call": "sign(0)",
+    "expected": "0",
+    "actual": "-1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sign:2:13:+",
+   "name": "sign",
+   "lines": [
+    "function sign(n) {",
+    "  if (n > 0) return 1",
+    "  if (n < 0) return +1",
+    "  return 0",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (n < 0) return -1",
+   "clue": {
+    "call": "sign(-5)",
+    "expected": "-1",
+    "actual": "1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sign:2:14:2",
+   "name": "sign",
+   "lines": [
+    "function sign(n) {",
+    "  if (n > 0) return 1",
+    "  if (n < 0) return -2",
+    "  return 0",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (n < 0) return -1",
+   "clue": {
+    "call": "sign(-5)",
+    "expected": "-1",
+    "actual": "-2"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sign:2:14:0",
+   "name": "sign",
+   "lines": [
+    "function sign(n) {",
+    "  if (n > 0) return 1",
+    "  if (n < 0) return -0",
+    "  return 0",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (n < 0) return -1",
+   "clue": {
+    "call": "sign(-5)",
+    "expected": "-1",
+    "actual": "0"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sign:3:3:1",
+   "name": "sign",
+   "lines": [
+    "function sign(n) {",
+    "  if (n > 0) return 1",
+    "  if (n < 0) return -1",
+    "  return 1",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 0",
+   "clue": {
+    "call": "sign(0)",
+    "expected": "0",
+    "actual": "1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isWeekend:1:5:!==",
+   "name": "isWeekend",
+   "lines": [
+    "function isWeekend(day) {",
+    "  return day !== 'Sat' || day === 'Sun'",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return day === 'Sat' || day === 'Sun'",
+   "clue": {
+    "call": "isWeekend('Sat')",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "isWeekend:1:9:&&",
+   "name": "isWeekend",
+   "lines": [
+    "function isWeekend(day) {",
+    "  return day === 'Sat' && day === 'Sun'",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return day === 'Sat' || day === 'Sun'",
+   "clue": {
+    "call": "isWeekend('Sat')",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "isWeekend:1:13:!==",
+   "name": "isWeekend",
+   "lines": [
+    "function isWeekend(day) {",
+    "  return day === 'Sat' || day !== 'Sun'",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return day === 'Sat' || day === 'Sun'",
+   "clue": {
+    "call": "isWeekend('Sun')",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "strongPassword:1:11:>",
+   "name": "strongPassword",
+   "lines": [
+    "function strongPassword(password) {",
+    "  const long = password.length > 8",
+    "  const mixed = password !== password.toLowerCase()",
+    "  return long && mixed",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  const long = password.length >= 8",
+   "clue": {
+    "call": "strongPassword('ABCDEFGH')",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "strongPassword:1:13:9",
+   "name": "strongPassword",
+   "lines": [
+    "function strongPassword(password) {",
+    "  const long = password.length >= 9",
+    "  const mixed = password !== password.toLowerCase()",
+    "  return long && mixed",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  const long = password.length >= 8",
+   "clue": {
+    "call": "strongPassword('ABCDEFGH')",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "strongPassword:1:13:7",
+   "name": "strongPassword",
+   "lines": [
+    "function strongPassword(password) {",
+    "  const long = password.length >= 7",
+    "  const mixed = password !== password.toLowerCase()",
+    "  return long && mixed",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  const long = password.length >= 8",
+   "clue": {
+    "call": "strongPassword('Short1A')",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "strongPassword:2:9:===",
+   "name": "strongPassword",
+   "lines": [
+    "function strongPassword(password) {",
+    "  const long = password.length >= 8",
+    "  const mixed = password === password.toLowerCase()",
+    "  return long && mixed",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  const mixed = password !== password.toLowerCase()",
+   "clue": {
+    "call": "strongPassword('Secret123')",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "strongPassword:3:5:||",
+   "name": "strongPassword",
+   "lines": [
+    "function strongPassword(password) {",
+    "  const long = password.length >= 8",
+    "  const mixed = password !== password.toLowerCase()",
+    "  return long || mixed",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return long && mixed",
+   "clue": {
+    "call": "strongPassword('secret123')",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "median:1:25:+",
+   "name": "median",
+   "lines": [
+    "function median(numbers) {",
+    "  const sorted = [...numbers].sort((a, b) => a + b)",
+    "  const middle = Math.floor(sorted.length / 2)",
+    "  if (sorted.length % 2) return sorted[middle]",
+    "  return (sorted[middle - 1] + sorted[middle]) / 2",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  const sorted = [...numbers].sort((a, b) => a - b)",
+   "clue": {
+    "call": "median([3, 1, 2])",
+    "expected": "2",
+    "actual": "1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "median:2:15:*",
+   "name": "median",
+   "lines": [
+    "function median(numbers) {",
+    "  const sorted = [...numbers].sort((a, b) => a - b)",
+    "  const middle = Math.floor(sorted.length * 2)",
+    "  if (sorted.length % 2) return sorted[middle]",
+    "  return (sorted[middle - 1] + sorted[middle]) / 2",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  const middle = Math.floor(sorted.length / 2)",
+   "clue": {
+    "call": "median([3, 1, 2])",
+    "expected": "2",
+    "actual": "undefined"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "median:2:17:3",
+   "name": "median",
+   "lines": [
+    "function median(numbers) {",
+    "  const sorted = [...numbers].sort((a, b) => a - b)",
+    "  const middle = Math.floor(sorted.length / 3)",
+    "  if (sorted.length % 2) return sorted[middle]",
+    "  return (sorted[middle - 1] + sorted[middle]) / 2",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  const middle = Math.floor(sorted.length / 2)",
+   "clue": {
+    "call": "median([4, 1, 3, 2])",
+    "expected": "2.5",
+    "actual": "1.5"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "median:2:17:1",
+   "name": "median",
+   "lines": [
+    "function median(numbers) {",
+    "  const sorted = [...numbers].sort((a, b) => a - b)",
+    "  const middle = Math.floor(sorted.length / 1)",
+    "  if (sorted.length % 2) return sorted[middle]",
+    "  return (sorted[middle - 1] + sorted[middle]) / 2",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  const middle = Math.floor(sorted.length / 2)",
+   "clue": {
+    "call": "median([3, 1, 2])",
+    "expected": "2",
+    "actual": "undefined"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "median:3:10:3",
+   "name": "median",
+   "lines": [
+    "function median(numbers) {",
+    "  const sorted = [...numbers].sort((a, b) => a - b)",
+    "  const middle = Math.floor(sorted.length / 2)",
+    "  if (sorted.length % 3) return sorted[middle]",
+    "  return (sorted[middle - 1] + sorted[middle]) / 2",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  if (sorted.length % 2) return sorted[middle]",
+   "clue": {
+    "call": "median([3, 1, 2])",
+    "expected": "2",
+    "actual": "1.5"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "median:3:10:1",
+   "name": "median",
+   "lines": [
+    "function median(numbers) {",
+    "  const sorted = [...numbers].sort((a, b) => a - b)",
+    "  const middle = Math.floor(sorted.length / 2)",
+    "  if (sorted.length % 1) return sorted[middle]",
+    "  return (sorted[middle - 1] + sorted[middle]) / 2",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  if (sorted.length % 2) return sorted[middle]",
+   "clue": {
+    "call": "median([3, 1, 2])",
+    "expected": "2",
+    "actual": "1.5"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "median:4:8:+",
+   "name": "median",
+   "lines": [
+    "function median(numbers) {",
+    "  const sorted = [...numbers].sort((a, b) => a - b)",
+    "  const middle = Math.floor(sorted.length / 2)",
+    "  if (sorted.length % 2) return sorted[middle]",
+    "  return (sorted[middle + 1] + sorted[middle]) / 2",
+    "}"
+   ],
+   "bug": 4,
+   "fix": "  return (sorted[middle - 1] + sorted[middle]) / 2",
+   "clue": {
+    "call": "median([4, 1, 3, 2])",
+    "expected": "2.5",
+    "actual": "3.5"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "median:4:10:2",
+   "name": "median",
+   "lines": [
+    "function median(numbers) {",
+    "  const sorted = [...numbers].sort((a, b) => a - b)",
+    "  const middle = Math.floor(sorted.length / 2)",
+    "  if (sorted.length % 2) return sorted[middle]",
+    "  return (sorted[middle - 2] + sorted[middle]) / 2",
+    "}"
+   ],
+   "bug": 4,
+   "fix": "  return (sorted[middle - 1] + sorted[middle]) / 2",
+   "clue": {
+    "call": "median([4, 1, 3, 2])",
+    "expected": "2.5",
+    "actual": "2"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "median:4:10:0",
+   "name": "median",
+   "lines": [
+    "function median(numbers) {",
+    "  const sorted = [...numbers].sort((a, b) => a - b)",
+    "  const middle = Math.floor(sorted.length / 2)",
+    "  if (sorted.length % 2) return sorted[middle]",
+    "  return (sorted[middle - 0] + sorted[middle]) / 2",
+    "}"
+   ],
+   "bug": 4,
+   "fix": "  return (sorted[middle - 1] + sorted[middle]) / 2",
+   "clue": {
+    "call": "median([4, 1, 3, 2])",
+    "expected": "2.5",
+    "actual": "3"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "median:4:13:-",
+   "name": "median",
+   "lines": [
+    "function median(numbers) {",
+    "  const sorted = [...numbers].sort((a, b) => a - b)",
+    "  const middle = Math.floor(sorted.length / 2)",
+    "  if (sorted.length % 2) return sorted[middle]",
+    "  return (sorted[middle - 1] - sorted[middle]) / 2",
+    "}"
+   ],
+   "bug": 4,
+   "fix": "  return (sorted[middle - 1] + sorted[middle]) / 2",
+   "clue": {
+    "call": "median([4, 1, 3, 2])",
+    "expected": "2.5",
+    "actual": "-0.5"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "median:4:21:*",
+   "name": "median",
+   "lines": [
+    "function median(numbers) {",
+    "  const sorted = [...numbers].sort((a, b) => a - b)",
+    "  const middle = Math.floor(sorted.length / 2)",
+    "  if (sorted.length % 2) return sorted[middle]",
+    "  return (sorted[middle - 1] + sorted[middle]) * 2",
+    "}"
+   ],
+   "bug": 4,
+   "fix": "  return (sorted[middle - 1] + sorted[middle]) / 2",
+   "clue": {
+    "call": "median([4, 1, 3, 2])",
+    "expected": "2.5",
+    "actual": "10"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "median:4:23:3",
+   "name": "median",
+   "lines": [
+    "function median(numbers) {",
+    "  const sorted = [...numbers].sort((a, b) => a - b)",
+    "  const middle = Math.floor(sorted.length / 2)",
+    "  if (sorted.length % 2) return sorted[middle]",
+    "  return (sorted[middle - 1] + sorted[middle]) / 3",
+    "}"
+   ],
+   "bug": 4,
+   "fix": "  return (sorted[middle - 1] + sorted[middle]) / 2",
+   "clue": {
+    "call": "median([4, 1, 3, 2])",
+    "expected": "2.5",
+    "actual": "1.6666666666666667"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "median:4:23:1",
+   "name": "median",
+   "lines": [
+    "function median(numbers) {",
+    "  const sorted = [...numbers].sort((a, b) => a - b)",
+    "  const middle = Math.floor(sorted.length / 2)",
+    "  if (sorted.length % 2) return sorted[middle]",
+    "  return (sorted[middle - 1] + sorted[middle]) / 1",
+    "}"
+   ],
+   "bug": 4,
+   "fix": "  return (sorted[middle - 1] + sorted[middle]) / 2",
+   "clue": {
+    "call": "median([4, 1, 3, 2])",
+    "expected": "2.5",
+    "actual": "5"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "factorial:1:7:2",
+   "name": "factorial",
+   "lines": [
+    "function factorial(n) {",
+    "  let result = 2",
+    "  for (let i = 2; i <= n; i++) result *= i",
+    "  return result",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  let result = 1",
+   "clue": {
+    "call": "factorial(0)",
+    "expected": "1",
+    "actual": "2"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "factorial:1:7:0",
+   "name": "factorial",
+   "lines": [
+    "function factorial(n) {",
+    "  let result = 0",
+    "  for (let i = 2; i <= n; i++) result *= i",
+    "  return result",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  let result = 1",
+   "clue": {
+    "call": "factorial(0)",
+    "expected": "1",
+    "actual": "0"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "factorial:2:10:3",
+   "name": "factorial",
+   "lines": [
+    "function factorial(n) {",
+    "  let result = 1",
+    "  for (let i = 3; i <= n; i++) result *= i",
+    "  return result",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 2; i <= n; i++) result *= i",
+   "clue": {
+    "call": "factorial(5)",
+    "expected": "120",
+    "actual": "60"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "factorial:2:15:<",
+   "name": "factorial",
+   "lines": [
+    "function factorial(n) {",
+    "  let result = 1",
+    "  for (let i = 2; i < n; i++) result *= i",
+    "  return result",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 2; i <= n; i++) result *= i",
+   "clue": {
+    "call": "factorial(5)",
+    "expected": "120",
+    "actual": "24"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "factorial:2:21:--",
+   "name": "factorial",
+   "lines": [
+    "function factorial(n) {",
+    "  let result = 1",
+    "  for (let i = 2; i <= n; i--) result *= i",
+    "  return result",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 2; i <= n; i++) result *= i",
+   "clue": {
+    "call": "factorial(5)",
+    "expected": "120",
+    "actual": "never finishes"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sumOdd:1:7:1",
+   "name": "sumOdd",
+   "lines": [
+    "function sumOdd(numbers) {",
+    "  let total = 1",
+    "  for (const n of numbers) if (n % 2 === 1) total += n",
+    "  return total",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  let total = 0",
+   "clue": {
+    "call": "sumOdd([1, 2, 3, 4, 5])",
+    "expected": "9",
+    "actual": "10"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sumOdd:2:20:3",
+   "name": "sumOdd",
+   "lines": [
+    "function sumOdd(numbers) {",
+    "  let total = 0",
+    "  for (const n of numbers) if (n % 3 === 1) total += n",
+    "  return total",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (const n of numbers) if (n % 2 === 1) total += n",
+   "clue": {
+    "call": "sumOdd([1, 2, 3, 4, 5])",
+    "expected": "9",
+    "actual": "5"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sumOdd:2:20:1",
+   "name": "sumOdd",
+   "lines": [
+    "function sumOdd(numbers) {",
+    "  let total = 0",
+    "  for (const n of numbers) if (n % 1 === 1) total += n",
+    "  return total",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (const n of numbers) if (n % 2 === 1) total += n",
+   "clue": {
+    "call": "sumOdd([1, 2, 3, 4, 5])",
+    "expected": "9",
+    "actual": "0"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sumOdd:2:22:!==",
+   "name": "sumOdd",
+   "lines": [
+    "function sumOdd(numbers) {",
+    "  let total = 0",
+    "  for (const n of numbers) if (n % 2 !== 1) total += n",
+    "  return total",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (const n of numbers) if (n % 2 === 1) total += n",
+   "clue": {
+    "call": "sumOdd([1, 2, 3, 4, 5])",
+    "expected": "9",
+    "actual": "6"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "sumOdd:2:24:2",
+   "name": "sumOdd",
+   "lines": [
+    "function sumOdd(numbers) {",
+    "  let total = 0",
+    "  for (const n of numbers) if (n % 2 === 2) total += n",
+    "  return total",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (const n of numbers) if (n % 2 === 1) total += n",
+   "clue": {
+    "call": "sumOdd([1, 2, 3, 4, 5])",
+    "expected": "9",
+    "actual": "0"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sumOdd:2:24:0",
+   "name": "sumOdd",
+   "lines": [
+    "function sumOdd(numbers) {",
+    "  let total = 0",
+    "  for (const n of numbers) if (n % 2 === 0) total += n",
+    "  return total",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (const n of numbers) if (n % 2 === 1) total += n",
+   "clue": {
+    "call": "sumOdd([1, 2, 3, 4, 5])",
+    "expected": "9",
+    "actual": "6"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "sumOdd:2:29:-=",
+   "name": "sumOdd",
+   "lines": [
+    "function sumOdd(numbers) {",
+    "  let total = 0",
+    "  for (const n of numbers) if (n % 2 === 1) total -= n",
+    "  return total",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (const n of numbers) if (n % 2 === 1) total += n",
+   "clue": {
+    "call": "sumOdd([1, 2, 3, 4, 5])",
+    "expected": "9",
+    "actual": "-9"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "initials:2:13:1",
+   "name": "initials",
+   "lines": [
+    "function initials(name) {",
+    "  const words = name.split(' ')",
+    "  return words.map(word => word[1]).join('').toUpperCase()",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return words.map(word => word[0]).join('').toUpperCase()",
+   "clue": {
+    "call": "initials('ada lovelace')",
+    "expected": "\"AL\"",
+    "actual": "\"DO\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:1:6:!==",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month !== 2) return leap ? 29 : 28",
+    "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (month === 2) return leap ? 29 : 28",
+   "clue": {
+    "call": "daysInMonth(2, true)",
+    "expected": "29",
+    "actual": "31"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "daysInMonth:1:8:3",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 3) return leap ? 29 : 28",
+    "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (month === 2) return leap ? 29 : 28",
+   "clue": {
+    "call": "daysInMonth(2, true)",
+    "expected": "29",
+    "actual": "31"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:1:8:1",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 1) return leap ? 29 : 28",
+    "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (month === 2) return leap ? 29 : 28",
+   "clue": {
+    "call": "daysInMonth(2, true)",
+    "expected": "29",
+    "actual": "31"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:1:17:30",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 30 : 28",
+    "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (month === 2) return leap ? 29 : 28",
+   "clue": {
+    "call": "daysInMonth(2, true)",
+    "expected": "29",
+    "actual": "30"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:1:17:28",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 28 : 28",
+    "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (month === 2) return leap ? 29 : 28",
+   "clue": {
+    "call": "daysInMonth(2, true)",
+    "expected": "29",
+    "actual": "28"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:1:21:29",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 29 : 29",
+    "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (month === 2) return leap ? 29 : 28",
+   "clue": {
+    "call": "daysInMonth(2, false)",
+    "expected": "28",
+    "actual": "29"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:1:21:27",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 29 : 27",
+    "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (month === 2) return leap ? 29 : 28",
+   "clue": {
+    "call": "daysInMonth(2, false)",
+    "expected": "28",
+    "actual": "27"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:2:4:5",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 29 : 28",
+    "  return [5, 6, 9, 11].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+   "clue": {
+    "call": "daysInMonth(4, false)",
+    "expected": "30",
+    "actual": "31"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:2:4:3",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 29 : 28",
+    "  return [3, 6, 9, 11].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+   "clue": {
+    "call": "daysInMonth(3, false)",
+    "expected": "31",
+    "actual": "30"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:2:7:7",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 29 : 28",
+    "  return [4, 7, 9, 11].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+   "clue": {
+    "call": "daysInMonth(6, false)",
+    "expected": "30",
+    "actual": "31"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:2:7:5",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 29 : 28",
+    "  return [4, 5, 9, 11].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+   "clue": {
+    "call": "daysInMonth(5, false)",
+    "expected": "31",
+    "actual": "30"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:2:10:10",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 29 : 28",
+    "  return [4, 6, 10, 11].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+   "clue": {
+    "call": "daysInMonth(9, false)",
+    "expected": "30",
+    "actual": "31"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:2:10:8",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 29 : 28",
+    "  return [4, 6, 8, 11].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+   "clue": {
+    "call": "daysInMonth(9, false)",
+    "expected": "30",
+    "actual": "31"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:2:13:12",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 29 : 28",
+    "  return [4, 6, 9, 12].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+   "clue": {
+    "call": "daysInMonth(11, false)",
+    "expected": "30",
+    "actual": "31"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:2:13:10",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 29 : 28",
+    "  return [4, 6, 9, 10].includes(month) ? 30 : 31",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+   "clue": {
+    "call": "daysInMonth(10, false)",
+    "expected": "31",
+    "actual": "30"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:2:23:31",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 29 : 28",
+    "  return [4, 6, 9, 11].includes(month) ? 31 : 31",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+   "clue": {
+    "call": "daysInMonth(4, false)",
+    "expected": "30",
+    "actual": "31"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:2:23:29",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 29 : 28",
+    "  return [4, 6, 9, 11].includes(month) ? 29 : 31",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+   "clue": {
+    "call": "daysInMonth(4, false)",
+    "expected": "30",
+    "actual": "29"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:2:27:32",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 29 : 28",
+    "  return [4, 6, 9, 11].includes(month) ? 30 : 32",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+   "clue": {
+    "call": "daysInMonth(1, false)",
+    "expected": "31",
+    "actual": "32"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "daysInMonth:2:27:30",
+   "name": "daysInMonth",
+   "lines": [
+    "function daysInMonth(month, leap) {",
+    "  if (month === 2) return leap ? 29 : 28",
+    "  return [4, 6, 9, 11].includes(month) ? 30 : 30",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return [4, 6, 9, 11].includes(month) ? 30 : 31",
+   "clue": {
+    "call": "daysInMonth(1, false)",
+    "expected": "31",
+    "actual": "30"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:1:6:<",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms < 1) return 5",
+    "  if (kilograms <= 5) return 10",
+    "  return 10 + (kilograms - 5) * 2",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (kilograms <= 1) return 5",
+   "clue": {
+    "call": "shipping(1)",
+    "expected": "5",
+    "actual": "10"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "shipping:1:8:2",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 2) return 5",
+    "  if (kilograms <= 5) return 10",
+    "  return 10 + (kilograms - 5) * 2",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (kilograms <= 1) return 5",
+   "clue": {
+    "call": "shipping(2)",
+    "expected": "10",
+    "actual": "5"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:1:8:0",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 0) return 5",
+    "  if (kilograms <= 5) return 10",
+    "  return 10 + (kilograms - 5) * 2",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (kilograms <= 1) return 5",
+   "clue": {
+    "call": "shipping(1)",
+    "expected": "5",
+    "actual": "10"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:1:13:6",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 1) return 6",
+    "  if (kilograms <= 5) return 10",
+    "  return 10 + (kilograms - 5) * 2",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (kilograms <= 1) return 5",
+   "clue": {
+    "call": "shipping(1)",
+    "expected": "5",
+    "actual": "6"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:1:13:4",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 1) return 4",
+    "  if (kilograms <= 5) return 10",
+    "  return 10 + (kilograms - 5) * 2",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (kilograms <= 1) return 5",
+   "clue": {
+    "call": "shipping(1)",
+    "expected": "5",
+    "actual": "4"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:2:8:6",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 1) return 5",
+    "  if (kilograms <= 6) return 10",
+    "  return 10 + (kilograms - 5) * 2",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (kilograms <= 5) return 10",
+   "clue": {
+    "call": "shipping(6)",
+    "expected": "12",
+    "actual": "10"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:2:13:11",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 1) return 5",
+    "  if (kilograms <= 5) return 11",
+    "  return 10 + (kilograms - 5) * 2",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (kilograms <= 5) return 10",
+   "clue": {
+    "call": "shipping(2)",
+    "expected": "10",
+    "actual": "11"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:2:13:9",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 1) return 5",
+    "  if (kilograms <= 5) return 9",
+    "  return 10 + (kilograms - 5) * 2",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (kilograms <= 5) return 10",
+   "clue": {
+    "call": "shipping(2)",
+    "expected": "10",
+    "actual": "9"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:3:3:11",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 1) return 5",
+    "  if (kilograms <= 5) return 10",
+    "  return 11 + (kilograms - 5) * 2",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 10 + (kilograms - 5) * 2",
+   "clue": {
+    "call": "shipping(6)",
+    "expected": "12",
+    "actual": "13"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:3:3:9",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 1) return 5",
+    "  if (kilograms <= 5) return 10",
+    "  return 9 + (kilograms - 5) * 2",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 10 + (kilograms - 5) * 2",
+   "clue": {
+    "call": "shipping(6)",
+    "expected": "12",
+    "actual": "11"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:3:5:-",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 1) return 5",
+    "  if (kilograms <= 5) return 10",
+    "  return 10 - (kilograms - 5) * 2",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 10 + (kilograms - 5) * 2",
+   "clue": {
+    "call": "shipping(6)",
+    "expected": "12",
+    "actual": "8"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:3:10:+",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 1) return 5",
+    "  if (kilograms <= 5) return 10",
+    "  return 10 + (kilograms + 5) * 2",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 10 + (kilograms - 5) * 2",
+   "clue": {
+    "call": "shipping(6)",
+    "expected": "12",
+    "actual": "32"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:3:12:6",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 1) return 5",
+    "  if (kilograms <= 5) return 10",
+    "  return 10 + (kilograms - 6) * 2",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 10 + (kilograms - 5) * 2",
+   "clue": {
+    "call": "shipping(6)",
+    "expected": "12",
+    "actual": "10"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:3:12:4",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 1) return 5",
+    "  if (kilograms <= 5) return 10",
+    "  return 10 + (kilograms - 4) * 2",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 10 + (kilograms - 5) * 2",
+   "clue": {
+    "call": "shipping(6)",
+    "expected": "12",
+    "actual": "14"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:3:15:/",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 1) return 5",
+    "  if (kilograms <= 5) return 10",
+    "  return 10 + (kilograms - 5) / 2",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 10 + (kilograms - 5) * 2",
+   "clue": {
+    "call": "shipping(6)",
+    "expected": "12",
+    "actual": "10.5"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:3:17:3",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 1) return 5",
+    "  if (kilograms <= 5) return 10",
+    "  return 10 + (kilograms - 5) * 3",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 10 + (kilograms - 5) * 2",
+   "clue": {
+    "call": "shipping(6)",
+    "expected": "12",
+    "actual": "13"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "shipping:3:17:1",
+   "name": "shipping",
+   "lines": [
+    "function shipping(kilograms) {",
+    "  if (kilograms <= 1) return 5",
+    "  if (kilograms <= 5) return 10",
+    "  return 10 + (kilograms - 5) * 1",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return 10 + (kilograms - 5) * 2",
+   "clue": {
+    "call": "shipping(6)",
+    "expected": "12",
+    "actual": "11"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isTriangle:1:5:-",
+   "name": "isTriangle",
+   "lines": [
+    "function isTriangle(a, b, c) {",
+    "  return a - b > c && a + c > b && b + c > a",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return a + b > c && a + c > b && b + c > a",
+   "clue": {
+    "call": "isTriangle(3, 4, 5)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isTriangle:1:9:>=",
+   "name": "isTriangle",
+   "lines": [
+    "function isTriangle(a, b, c) {",
+    "  return a + b >= c && a + c > b && b + c > a",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return a + b > c && a + c > b && b + c > a",
+   "clue": {
+    "call": "isTriangle(1, 2, 3)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "isTriangle:1:13:||",
+   "name": "isTriangle",
+   "lines": [
+    "function isTriangle(a, b, c) {",
+    "  return a + b > c || a + c > b && b + c > a",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return a + b > c && a + c > b && b + c > a",
+   "clue": {
+    "call": "isTriangle(1, 2, 3)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "isTriangle:1:17:-",
+   "name": "isTriangle",
+   "lines": [
+    "function isTriangle(a, b, c) {",
+    "  return a + b > c && a - c > b && b + c > a",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return a + b > c && a + c > b && b + c > a",
+   "clue": {
+    "call": "isTriangle(3, 4, 5)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isTriangle:1:21:>=",
+   "name": "isTriangle",
+   "lines": [
+    "function isTriangle(a, b, c) {",
+    "  return a + b > c && a + c >= b && b + c > a",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return a + b > c && a + c > b && b + c > a",
+   "clue": {
+    "call": "isTriangle(1, 3, 2)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "isTriangle:1:25:||",
+   "name": "isTriangle",
+   "lines": [
+    "function isTriangle(a, b, c) {",
+    "  return a + b > c && a + c > b || b + c > a",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return a + b > c && a + c > b && b + c > a",
+   "clue": {
+    "call": "isTriangle(1, 2, 3)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "isTriangle:1:29:-",
+   "name": "isTriangle",
+   "lines": [
+    "function isTriangle(a, b, c) {",
+    "  return a + b > c && a + c > b && b - c > a",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return a + b > c && a + c > b && b + c > a",
+   "clue": {
+    "call": "isTriangle(3, 4, 5)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isTriangle:1:33:>=",
+   "name": "isTriangle",
+   "lines": [
+    "function isTriangle(a, b, c) {",
+    "  return a + b > c && a + c > b && b + c >= a",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return a + b > c && a + c > b && b + c > a",
+   "clue": {
+    "call": "isTriangle(3, 1, 2)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "level:1:9:*",
+   "name": "level",
+   "lines": [
+    "function level(xp) {",
+    "  return Math.floor(xp * 100) + 1",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return Math.floor(xp / 100) + 1",
+   "clue": {
+    "call": "level(99)",
+    "expected": "1",
+    "actual": "9901"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "level:1:11:101",
+   "name": "level",
+   "lines": [
+    "function level(xp) {",
+    "  return Math.floor(xp / 101) + 1",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return Math.floor(xp / 100) + 1",
+   "clue": {
+    "call": "level(100)",
+    "expected": "2",
+    "actual": "1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "level:1:11:99",
+   "name": "level",
+   "lines": [
+    "function level(xp) {",
+    "  return Math.floor(xp / 99) + 1",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return Math.floor(xp / 100) + 1",
+   "clue": {
+    "call": "level(99)",
+    "expected": "1",
+    "actual": "2"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "level:1:14:-",
+   "name": "level",
+   "lines": [
+    "function level(xp) {",
+    "  return Math.floor(xp / 100) - 1",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return Math.floor(xp / 100) + 1",
+   "clue": {
+    "call": "level(0)",
+    "expected": "1",
+    "actual": "-1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "level:1:16:2",
+   "name": "level",
+   "lines": [
+    "function level(xp) {",
+    "  return Math.floor(xp / 100) + 2",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return Math.floor(xp / 100) + 1",
+   "clue": {
+    "call": "level(0)",
+    "expected": "1",
+    "actual": "2"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "level:1:16:0",
+   "name": "level",
+   "lines": [
+    "function level(xp) {",
+    "  return Math.floor(xp / 100) + 0",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return Math.floor(xp / 100) + 1",
+   "clue": {
+    "call": "level(0)",
+    "expected": "1",
+    "actual": "0"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "clock:1:13:*",
+   "name": "clock",
+   "lines": [
+    "function clock(seconds) {",
+    "  const minutes = Math.floor(seconds * 60)",
+    "  const rest = seconds % 60",
+    "  return minutes + ':' + String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  const minutes = Math.floor(seconds / 60)",
+   "clue": {
+    "call": "clock(125)",
+    "expected": "\"2:05\"",
+    "actual": "\"7500:05\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "clock:1:15:61",
+   "name": "clock",
+   "lines": [
+    "function clock(seconds) {",
+    "  const minutes = Math.floor(seconds / 61)",
+    "  const rest = seconds % 60",
+    "  return minutes + ':' + String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  const minutes = Math.floor(seconds / 60)",
+   "clue": {
+    "call": "clock(60)",
+    "expected": "\"1:00\"",
+    "actual": "\"0:00\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "clock:1:15:59",
+   "name": "clock",
+   "lines": [
+    "function clock(seconds) {",
+    "  const minutes = Math.floor(seconds / 59)",
+    "  const rest = seconds % 60",
+    "  return minutes + ':' + String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  const minutes = Math.floor(seconds / 60)",
+   "clue": {
+    "call": "clock(59)",
+    "expected": "\"0:59\"",
+    "actual": "\"1:59\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "clock:2:11:61",
+   "name": "clock",
+   "lines": [
+    "function clock(seconds) {",
+    "  const minutes = Math.floor(seconds / 60)",
+    "  const rest = seconds % 61",
+    "  return minutes + ':' + String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  const rest = seconds % 60",
+   "clue": {
+    "call": "clock(125)",
+    "expected": "\"2:05\"",
+    "actual": "\"2:03\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "clock:2:11:59",
+   "name": "clock",
+   "lines": [
+    "function clock(seconds) {",
+    "  const minutes = Math.floor(seconds / 60)",
+    "  const rest = seconds % 59",
+    "  return minutes + ':' + String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  const rest = seconds % 60",
+   "clue": {
+    "call": "clock(125)",
+    "expected": "\"2:05\"",
+    "actual": "\"2:07\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "clock:3:5:-",
+   "name": "clock",
+   "lines": [
+    "function clock(seconds) {",
+    "  const minutes = Math.floor(seconds / 60)",
+    "  const rest = seconds % 60",
+    "  return minutes - ':' + String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return minutes + ':' + String(rest).padStart(2, '0')",
+   "clue": {
+    "call": "clock(125)",
+    "expected": "\"2:05\"",
+    "actual": "\"NaN05\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "clock:3:9:-",
+   "name": "clock",
+   "lines": [
+    "function clock(seconds) {",
+    "  const minutes = Math.floor(seconds / 60)",
+    "  const rest = seconds % 60",
+    "  return minutes + ':' - String(rest).padStart(2, '0')",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return minutes + ':' + String(rest).padStart(2, '0')",
+   "clue": {
+    "call": "clock(125)",
+    "expected": "\"2:05\"",
+    "actual": "null"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "clock:3:18:3",
+   "name": "clock",
+   "lines": [
+    "function clock(seconds) {",
+    "  const minutes = Math.floor(seconds / 60)",
+    "  const rest = seconds % 60",
+    "  return minutes + ':' + String(rest).padStart(3, '0')",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return minutes + ':' + String(rest).padStart(2, '0')",
+   "clue": {
+    "call": "clock(125)",
+    "expected": "\"2:05\"",
+    "actual": "\"2:005\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "clock:3:18:1",
+   "name": "clock",
+   "lines": [
+    "function clock(seconds) {",
+    "  const minutes = Math.floor(seconds / 60)",
+    "  const rest = seconds % 60",
+    "  return minutes + ':' + String(rest).padStart(1, '0')",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "  return minutes + ':' + String(rest).padStart(2, '0')",
+   "clue": {
+    "call": "clock(125)",
+    "expected": "\"2:05\"",
+    "actual": "\"2:5\""
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "compact:1:13:===",
+   "name": "compact",
+   "lines": [
+    "function compact(items) {",
+    "  return items.filter(item => item === null && item !== undefined)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return items.filter(item => item !== null && item !== undefined)",
+   "clue": {
+    "call": "compact([1, null, 2, undefined, 0])",
+    "expected": "[1,2,0]",
+    "actual": "[null]"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "compact:1:17:||",
+   "name": "compact",
+   "lines": [
+    "function compact(items) {",
+    "  return items.filter(item => item !== null || item !== undefined)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return items.filter(item => item !== null && item !== undefined)",
+   "clue": {
+    "call": "compact([1, null, 2, undefined, 0])",
+    "expected": "[1,2,0]",
+    "actual": "[1,null,2,null,0]"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "compact:1:21:===",
+   "name": "compact",
+   "lines": [
+    "function compact(items) {",
+    "  return items.filter(item => item !== null && item === undefined)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return items.filter(item => item !== null && item !== undefined)",
+   "clue": {
+    "call": "compact([1, null, 2, undefined, 0])",
+    "expected": "[1,2,0]",
+    "actual": "[null]"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "wordCount:1:10:!==",
+   "name": "wordCount",
+   "lines": [
+    "function wordCount(text) {",
+    "  if (text.trim() !== '') return 0",
+    "  return text.trim().split(' ').length",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (text.trim() === '') return 0",
+   "clue": {
+    "call": "wordCount('')",
+    "expected": "0",
+    "actual": "1"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "wordCount:1:17:1",
+   "name": "wordCount",
+   "lines": [
+    "function wordCount(text) {",
+    "  if (text.trim() === '') return 1",
+    "  return text.trim().split(' ').length",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (text.trim() === '') return 0",
+   "clue": {
+    "call": "wordCount('')",
+    "expected": "0",
+    "actual": "1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "bestStreak:1:7:1",
+   "name": "bestStreak",
+   "lines": [
+    "function bestStreak(results) {",
+    "  let best = 1",
+    "  let run = 0",
+    "  for (const won of results) {",
+    "    run = won ? run + 1 : 0",
+    "    if (run > best) best = run",
+    "  }",
+    "  return best",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  let best = 0",
+   "clue": {
+    "call": "bestStreak([])",
+    "expected": "0",
+    "actual": "1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "bestStreak:2:7:1",
+   "name": "bestStreak",
+   "lines": [
+    "function bestStreak(results) {",
+    "  let best = 0",
+    "  let run = 1",
+    "  for (const won of results) {",
+    "    run = won ? run + 1 : 0",
+    "    if (run > best) best = run",
+    "  }",
+    "  return best",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  let run = 0",
+   "clue": {
+    "call": "bestStreak([true, true, false, true])",
+    "expected": "2",
+    "actual": "3"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "bestStreak:4:11:-",
+   "name": "bestStreak",
+   "lines": [
+    "function bestStreak(results) {",
+    "  let best = 0",
+    "  let run = 0",
+    "  for (const won of results) {",
+    "    run = won ? run - 1 : 0",
+    "    if (run > best) best = run",
+    "  }",
+    "  return best",
+    "}"
+   ],
+   "bug": 4,
+   "fix": "    run = won ? run + 1 : 0",
+   "clue": {
+    "call": "bestStreak([true, true, false, true])",
+    "expected": "2",
+    "actual": "0"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "bestStreak:4:13:2",
+   "name": "bestStreak",
+   "lines": [
+    "function bestStreak(results) {",
+    "  let best = 0",
+    "  let run = 0",
+    "  for (const won of results) {",
+    "    run = won ? run + 2 : 0",
+    "    if (run > best) best = run",
+    "  }",
+    "  return best",
+    "}"
+   ],
+   "bug": 4,
+   "fix": "    run = won ? run + 1 : 0",
+   "clue": {
+    "call": "bestStreak([true, true, false, true])",
+    "expected": "2",
+    "actual": "4"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "bestStreak:4:13:0",
+   "name": "bestStreak",
+   "lines": [
+    "function bestStreak(results) {",
+    "  let best = 0",
+    "  let run = 0",
+    "  for (const won of results) {",
+    "    run = won ? run + 0 : 0",
+    "    if (run > best) best = run",
+    "  }",
+    "  return best",
+    "}"
+   ],
+   "bug": 4,
+   "fix": "    run = won ? run + 1 : 0",
+   "clue": {
+    "call": "bestStreak([true, true, false, true])",
+    "expected": "2",
+    "actual": "0"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "bestStreak:4:17:1",
+   "name": "bestStreak",
+   "lines": [
+    "function bestStreak(results) {",
+    "  let best = 0",
+    "  let run = 0",
+    "  for (const won of results) {",
+    "    run = won ? run + 1 : 1",
+    "    if (run > best) best = run",
+    "  }",
+    "  return best",
+    "}"
+   ],
+   "bug": 4,
+   "fix": "    run = won ? run + 1 : 0",
+   "clue": {
+    "call": "bestStreak([false])",
+    "expected": "0",
+    "actual": "1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPrime:1:6:<=",
+   "name": "isPrime",
+   "lines": [
+    "function isPrime(n) {",
+    "  if (n <= 2) return false",
+    "  for (let i = 2; i * i <= n; i++) {",
+    "    if (n % i === 0) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (n < 2) return false",
+   "clue": {
+    "call": "isPrime(2)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "isPrime:1:8:3",
+   "name": "isPrime",
+   "lines": [
+    "function isPrime(n) {",
+    "  if (n < 3) return false",
+    "  for (let i = 2; i * i <= n; i++) {",
+    "    if (n % i === 0) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (n < 2) return false",
+   "clue": {
+    "call": "isPrime(2)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPrime:1:8:1",
+   "name": "isPrime",
+   "lines": [
+    "function isPrime(n) {",
+    "  if (n < 1) return false",
+    "  for (let i = 2; i * i <= n; i++) {",
+    "    if (n % i === 0) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (n < 2) return false",
+   "clue": {
+    "call": "isPrime(1)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPrime:1:13:true",
+   "name": "isPrime",
+   "lines": [
+    "function isPrime(n) {",
+    "  if (n < 2) return true",
+    "  for (let i = 2; i * i <= n; i++) {",
+    "    if (n % i === 0) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (n < 2) return false",
+   "clue": {
+    "call": "isPrime(1)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "isPrime:2:10:3",
+   "name": "isPrime",
+   "lines": [
+    "function isPrime(n) {",
+    "  if (n < 2) return false",
+    "  for (let i = 3; i * i <= n; i++) {",
+    "    if (n % i === 0) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 2; i * i <= n; i++) {",
+   "clue": {
+    "call": "isPrime(4)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPrime:2:10:1",
+   "name": "isPrime",
+   "lines": [
+    "function isPrime(n) {",
+    "  if (n < 2) return false",
+    "  for (let i = 1; i * i <= n; i++) {",
+    "    if (n % i === 0) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 2; i * i <= n; i++) {",
+   "clue": {
+    "call": "isPrime(2)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPrime:2:15:/",
+   "name": "isPrime",
+   "lines": [
+    "function isPrime(n) {",
+    "  if (n < 2) return false",
+    "  for (let i = 2; i / i <= n; i++) {",
+    "    if (n % i === 0) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 2; i * i <= n; i++) {",
+   "clue": {
+    "call": "isPrime(2)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPrime:2:19:<",
+   "name": "isPrime",
+   "lines": [
+    "function isPrime(n) {",
+    "  if (n < 2) return false",
+    "  for (let i = 2; i * i < n; i++) {",
+    "    if (n % i === 0) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 2; i * i <= n; i++) {",
+   "clue": {
+    "call": "isPrime(4)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "isPrime:2:25:--",
+   "name": "isPrime",
+   "lines": [
+    "function isPrime(n) {",
+    "  if (n < 2) return false",
+    "  for (let i = 2; i * i <= n; i--) {",
+    "    if (n % i === 0) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  for (let i = 2; i * i <= n; i++) {",
+   "clue": {
+    "call": "isPrime(13)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPrime:3:10:!==",
+   "name": "isPrime",
+   "lines": [
+    "function isPrime(n) {",
+    "  if (n < 2) return false",
+    "  for (let i = 2; i * i <= n; i++) {",
+    "    if (n % i !== 0) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "    if (n % i === 0) return false",
+   "clue": {
+    "call": "isPrime(4)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "isPrime:3:12:1",
+   "name": "isPrime",
+   "lines": [
+    "function isPrime(n) {",
+    "  if (n < 2) return false",
+    "  for (let i = 2; i * i <= n; i++) {",
+    "    if (n % i === 1) return false",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "    if (n % i === 0) return false",
+   "clue": {
+    "call": "isPrime(4)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "isPrime:3:17:true",
+   "name": "isPrime",
+   "lines": [
+    "function isPrime(n) {",
+    "  if (n < 2) return false",
+    "  for (let i = 2; i * i <= n; i++) {",
+    "    if (n % i === 0) return true",
+    "  }",
+    "  return true",
+    "}"
+   ],
+   "bug": 3,
+   "fix": "    if (n % i === 0) return false",
+   "clue": {
+    "call": "isPrime(4)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "isPrime:5:3:false",
+   "name": "isPrime",
+   "lines": [
+    "function isPrime(n) {",
+    "  if (n < 2) return false",
+    "  for (let i = 2; i * i <= n; i++) {",
+    "    if (n % i === 0) return false",
+    "  }",
+    "  return false",
+    "}"
+   ],
+   "bug": 5,
+   "fix": "  return true",
+   "clue": {
+    "call": "isPrime(2)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "trafficLight:1:6:!==",
+   "name": "trafficLight",
+   "lines": [
+    "function trafficLight(color) {",
+    "  if (color !== 'green') return 'go'",
+    "  if (color === 'amber') return 'slow down'",
+    "  return 'stop'",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (color === 'green') return 'go'",
+   "clue": {
+    "call": "trafficLight('green')",
+    "expected": "\"go\"",
+    "actual": "\"stop\""
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "trafficLight:2:6:!==",
+   "name": "trafficLight",
+   "lines": [
+    "function trafficLight(color) {",
+    "  if (color === 'green') return 'go'",
+    "  if (color !== 'amber') return 'slow down'",
+    "  return 'stop'",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  if (color === 'amber') return 'slow down'",
+   "clue": {
+    "call": "trafficLight('amber')",
+    "expected": "\"slow down\"",
+    "actual": "\"stop\""
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "canAfford:1:5:+",
+   "name": "canAfford",
+   "lines": [
+    "function canAfford(balance, price, fee) {",
+    "  return balance + fee >= price",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return balance - fee >= price",
+   "clue": {
+    "call": "canAfford(100, 91, 10)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "canAfford:1:9:>",
+   "name": "canAfford",
+   "lines": [
+    "function canAfford(balance, price, fee) {",
+    "  return balance - fee > price",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return balance - fee >= price",
+   "clue": {
+    "call": "canAfford(100, 90, 10)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "livesLeft:1:7:1",
+   "name": "livesLeft",
+   "lines": [
+    "function livesLeft(hits) {",
+    "  return Math.max(1, 3 - hits)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return Math.max(0, 3 - hits)",
+   "clue": {
+    "call": "livesLeft(3)",
+    "expected": "0",
+    "actual": "1"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "livesLeft:1:10:4",
+   "name": "livesLeft",
+   "lines": [
+    "function livesLeft(hits) {",
+    "  return Math.max(0, 4 - hits)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return Math.max(0, 3 - hits)",
+   "clue": {
+    "call": "livesLeft(0)",
+    "expected": "3",
+    "actual": "4"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "livesLeft:1:10:2",
+   "name": "livesLeft",
+   "lines": [
+    "function livesLeft(hits) {",
+    "  return Math.max(0, 2 - hits)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return Math.max(0, 3 - hits)",
+   "clue": {
+    "call": "livesLeft(0)",
+    "expected": "3",
+    "actual": "2"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "livesLeft:1:12:+",
+   "name": "livesLeft",
+   "lines": [
+    "function livesLeft(hits) {",
+    "  return Math.max(0, 3 + hits)",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return Math.max(0, 3 - hits)",
+   "clue": {
+    "call": "livesLeft(2)",
+    "expected": "1",
+    "actual": "5"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "needsLogin:1:11:true",
+   "name": "needsLogin",
+   "lines": [
+    "function needsLogin(page, user) {",
+    "  if (page.public) return true",
+    "  return !user",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  if (page.public) return false",
+   "clue": {
+    "call": "needsLogin({ public: true }, null)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "needsLogin:2:3:drop",
+   "name": "needsLogin",
+   "lines": [
+    "function needsLogin(page, user) {",
+    "  if (page.public) return false",
+    "  return user",
+    "}"
+   ],
+   "bug": 2,
+   "fix": "  return !user",
+   "clue": {
+    "call": "needsLogin({ public: false }, null)",
+    "expected": "true",
+    "actual": "null"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "canMove:1:5:>",
+   "name": "canMove",
+   "lines": [
+    "function canMove(x, y, size) {",
+    "  return x > 0 && y >= 0 && x < size && y < size",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return x >= 0 && y >= 0 && x < size && y < size",
+   "clue": {
+    "call": "canMove(0, 0, 3)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "canMove:1:7:1",
+   "name": "canMove",
+   "lines": [
+    "function canMove(x, y, size) {",
+    "  return x >= 1 && y >= 0 && x < size && y < size",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return x >= 0 && y >= 0 && x < size && y < size",
+   "clue": {
+    "call": "canMove(0, 0, 3)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "canMove:1:9:||",
+   "name": "canMove",
+   "lines": [
+    "function canMove(x, y, size) {",
+    "  return x >= 0 || y >= 0 && x < size && y < size",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return x >= 0 && y >= 0 && x < size && y < size",
+   "clue": {
+    "call": "canMove(3, 0, 3)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "canMove:1:13:>",
+   "name": "canMove",
+   "lines": [
+    "function canMove(x, y, size) {",
+    "  return x >= 0 && y > 0 && x < size && y < size",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return x >= 0 && y >= 0 && x < size && y < size",
+   "clue": {
+    "call": "canMove(0, 0, 3)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "canMove:1:15:1",
+   "name": "canMove",
+   "lines": [
+    "function canMove(x, y, size) {",
+    "  return x >= 0 && y >= 1 && x < size && y < size",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return x >= 0 && y >= 0 && x < size && y < size",
+   "clue": {
+    "call": "canMove(0, 0, 3)",
+    "expected": "true",
+    "actual": "false"
+   },
+   "difficulty": 3
+  },
+  {
+   "id": "canMove:1:17:||",
+   "name": "canMove",
+   "lines": [
+    "function canMove(x, y, size) {",
+    "  return x >= 0 && y >= 0 || x < size && y < size",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return x >= 0 && y >= 0 && x < size && y < size",
+   "clue": {
+    "call": "canMove(3, 0, 3)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "canMove:1:21:<=",
+   "name": "canMove",
+   "lines": [
+    "function canMove(x, y, size) {",
+    "  return x >= 0 && y >= 0 && x <= size && y < size",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return x >= 0 && y >= 0 && x < size && y < size",
+   "clue": {
+    "call": "canMove(3, 0, 3)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 2
+  },
+  {
+   "id": "canMove:1:25:||",
+   "name": "canMove",
+   "lines": [
+    "function canMove(x, y, size) {",
+    "  return x >= 0 && y >= 0 && x < size || y < size",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return x >= 0 && y >= 0 && x < size && y < size",
+   "clue": {
+    "call": "canMove(3, 0, 3)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 1
+  },
+  {
+   "id": "canMove:1:29:<=",
+   "name": "canMove",
+   "lines": [
+    "function canMove(x, y, size) {",
+    "  return x >= 0 && y >= 0 && x < size && y <= size",
+    "}"
+   ],
+   "bug": 1,
+   "fix": "  return x >= 0 && y >= 0 && x < size && y < size",
+   "clue": {
+    "call": "canMove(0, 3, 3)",
+    "expected": "false",
+    "actual": "true"
+   },
+   "difficulty": 2
+  }
+ ],
+ "snippets": [
+  {
+   "name": "chunk",
+   "source": "function chunk(items, size) {\n  const groups = []\n  for (let i = 0; i < items.length; i += size) {\n    groups.push(items.slice(i, i + size))\n  }\n  return groups\n}"
+  },
+  {
+   "name": "range",
+   "source": "function range(start, end, step = 1) {\n  const numbers = []\n  for (let n = start; n < end; n += step) numbers.push(n)\n  return numbers\n}"
+  },
+  {
+   "name": "last",
+   "source": "function last(items) {\n  return items[items.length - 1]\n}"
+  },
+  {
+   "name": "sum",
+   "source": "function sum(numbers) {\n  let total = 0\n  for (const n of numbers) total += n\n  return total\n}"
+  },
+  {
+   "name": "average",
+   "source": "function average(numbers) {\n  if (numbers.length === 0) return 0\n  return numbers.reduce((total, n) => total + n, 0) / numbers.length\n}"
+  },
+  {
+   "name": "isPalindrome",
+   "source": "function isPalindrome(word) {\n  const letters = word.toLowerCase()\n  for (let i = 0; i < letters.length / 2; i++) {\n    if (letters[i] !== letters[letters.length - 1 - i]) return false\n  }\n  return true\n}"
+  },
+  {
+   "name": "capitalize",
+   "source": "function capitalize(text) {\n  return text.charAt(0).toUpperCase() + text.slice(1)\n}"
+  },
+  {
+   "name": "countVowels",
+   "source": "function countVowels(text) {\n  let count = 0\n  for (const letter of text.toLowerCase()) {\n    if ('aeiou'.includes(letter)) count++\n  }\n  return count\n}"
+  },
+  {
+   "name": "largest",
+   "source": "function largest(numbers) {\n  let best = numbers[0]\n  for (let i = 1; i < numbers.length; i++) {\n    if (numbers[i] > best) best = numbers[i]\n  }\n  return best\n}"
+  },
+  {
+   "name": "isLeapYear",
+   "source": "function isLeapYear(year) {\n  if (year % 400 === 0) return true\n  if (year % 100 === 0) return false\n  return year % 4 === 0\n}"
+  },
+  {
+   "name": "canCheckout",
+   "source": "function canCheckout(cart, user) {\n  if (cart.items.length === 0) return false\n  if (!user.signedIn) return false\n  return cart.total > 0 && user.verified\n}"
+  },
+  {
+   "name": "isAdult",
+   "source": "function isAdult(age) {\n  return age >= 18\n}"
+  },
+  {
+   "name": "truncate",
+   "source": "function truncate(text, max) {\n  if (text.length <= max) return text\n  return text.slice(0, max - 1) + '…'\n}"
+  },
+  {
+   "name": "binarySearch",
+   "source": "function binarySearch(sorted, target) {\n  let low = 0\n  let high = sorted.length - 1\n  while (low <= high) {\n    const middle = Math.floor((low + high) / 2)\n    if (sorted[middle] === target) return middle\n    if (sorted[middle] < target) low = middle + 1\n    else high = middle - 1\n  }\n  return -1\n}"
+  },
+  {
+   "name": "fizzBuzz",
+   "source": "function fizzBuzz(n) {\n  if (n % 15 === 0) return 'FizzBuzz'\n  if (n % 3 === 0) return 'Fizz'\n  if (n % 5 === 0) return 'Buzz'\n  return String(n)\n}"
+  },
+  {
+   "name": "unique",
+   "source": "function unique(items) {\n  const seen = new Set()\n  return items.filter(item => {\n    if (seen.has(item)) return false\n    seen.add(item)\n    return true\n  })\n}"
+  },
+  {
+   "name": "formatPrice",
+   "source": "function formatPrice(cents) {\n  const rands = Math.floor(cents / 100)\n  const rest = cents % 100\n  return 'R' + rands + '.' + String(rest).padStart(2, '0')\n}"
+  },
+  {
+   "name": "countdown",
+   "source": "function countdown(from) {\n  const steps = []\n  for (let n = from; n > 0; n--) steps.push(n)\n  return [...steps, 'Liftoff!']\n}"
+  },
+  {
+   "name": "isEven",
+   "source": "function isEven(n) {\n  return n % 2 === 0\n}"
+  },
+  {
+   "name": "canVote",
+   "source": "function canVote(age, registered) {\n  return age >= 18 && registered\n}"
+  },
+  {
+   "name": "inRange",
+   "source": "function inRange(n, low, high) {\n  return n >= low && n <= high\n}"
+  },
+  {
+   "name": "grade",
+   "source": "function grade(score) {\n  if (score >= 90) return 'A'\n  if (score >= 80) return 'B'\n  if (score >= 70) return 'C'\n  return 'F'\n}"
+  },
+  {
+   "name": "discount",
+   "source": "function discount(total, member) {\n  if (member && total >= 100) return total * 0.9\n  return total\n}"
+  },
+  {
+   "name": "sign",
+   "source": "function sign(n) {\n  if (n > 0) return 1\n  if (n < 0) return -1\n  return 0\n}"
+  },
+  {
+   "name": "isWeekend",
+   "source": "function isWeekend(day) {\n  return day === 'Sat' || day === 'Sun'\n}"
+  },
+  {
+   "name": "strongPassword",
+   "source": "function strongPassword(password) {\n  const long = password.length >= 8\n  const mixed = password !== password.toLowerCase()\n  return long && mixed\n}"
+  },
+  {
+   "name": "median",
+   "source": "function median(numbers) {\n  const sorted = [...numbers].sort((a, b) => a - b)\n  const middle = Math.floor(sorted.length / 2)\n  if (sorted.length % 2) return sorted[middle]\n  return (sorted[middle - 1] + sorted[middle]) / 2\n}"
+  },
+  {
+   "name": "factorial",
+   "source": "function factorial(n) {\n  let result = 1\n  for (let i = 2; i <= n; i++) result *= i\n  return result\n}"
+  },
+  {
+   "name": "sumOdd",
+   "source": "function sumOdd(numbers) {\n  let total = 0\n  for (const n of numbers) if (n % 2 === 1) total += n\n  return total\n}"
+  },
+  {
+   "name": "initials",
+   "source": "function initials(name) {\n  const words = name.split(' ')\n  return words.map(word => word[0]).join('').toUpperCase()\n}"
+  },
+  {
+   "name": "daysInMonth",
+   "source": "function daysInMonth(month, leap) {\n  if (month === 2) return leap ? 29 : 28\n  return [4, 6, 9, 11].includes(month) ? 30 : 31\n}"
+  },
+  {
+   "name": "shipping",
+   "source": "function shipping(kilograms) {\n  if (kilograms <= 1) return 5\n  if (kilograms <= 5) return 10\n  return 10 + (kilograms - 5) * 2\n}"
+  },
+  {
+   "name": "isTriangle",
+   "source": "function isTriangle(a, b, c) {\n  return a + b > c && a + c > b && b + c > a\n}"
+  },
+  {
+   "name": "level",
+   "source": "function level(xp) {\n  return Math.floor(xp / 100) + 1\n}"
+  },
+  {
+   "name": "clock",
+   "source": "function clock(seconds) {\n  const minutes = Math.floor(seconds / 60)\n  const rest = seconds % 60\n  return minutes + ':' + String(rest).padStart(2, '0')\n}"
+  },
+  {
+   "name": "compact",
+   "source": "function compact(items) {\n  return items.filter(item => item !== null && item !== undefined)\n}"
+  },
+  {
+   "name": "wordCount",
+   "source": "function wordCount(text) {\n  if (text.trim() === '') return 0\n  return text.trim().split(' ').length\n}"
+  },
+  {
+   "name": "bestStreak",
+   "source": "function bestStreak(results) {\n  let best = 0\n  let run = 0\n  for (const won of results) {\n    run = won ? run + 1 : 0\n    if (run > best) best = run\n  }\n  return best\n}"
+  },
+  {
+   "name": "isPrime",
+   "source": "function isPrime(n) {\n  if (n < 2) return false\n  for (let i = 2; i * i <= n; i++) {\n    if (n % i === 0) return false\n  }\n  return true\n}"
+  },
+  {
+   "name": "trafficLight",
+   "source": "function trafficLight(color) {\n  if (color === 'green') return 'go'\n  if (color === 'amber') return 'slow down'\n  return 'stop'\n}"
+  },
+  {
+   "name": "canAfford",
+   "source": "function canAfford(balance, price, fee) {\n  return balance - fee >= price\n}"
+  },
+  {
+   "name": "livesLeft",
+   "source": "function livesLeft(hits) {\n  return Math.max(0, 3 - hits)\n}"
+  },
+  {
+   "name": "needsLogin",
+   "source": "function needsLogin(page, user) {\n  if (page.public) return false\n  return !user\n}"
+  },
+  {
+   "name": "canMove",
+   "source": "function canMove(x, y, size) {\n  return x >= 0 && y >= 0 && x < size && y < size\n}"
+  }
+ ]
+}
