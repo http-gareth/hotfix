@@ -1,5 +1,7 @@
 # HOTFIX!
 
+**Play it: https://hotfix-1r1q.onrender.com** (free hosting, so the first visit after a quiet spell takes about a minute to wake up)
+
 A live multiplayer coding game, drawn like a comic book. A villain called The Regression keeps breaking production. Find the bug, fix it, and out-type your friends.
 
 - **Hunt** rounds show a function and a failing test. Tap the broken line, then pick the fix that makes the test pass (or press 1 to 4).
@@ -57,7 +59,14 @@ npm run puzzles
 npm run load -- http://localhost:5320 200 60
 ```
 
-`npm run load` plays 200 simulated players in rooms of four for 60 seconds against any running copy of the game and saves the results to `web/load-test.json`, which the architecture page shows. On a laptop: 2,034 messages a second, 5 ms replies at p95, 15% of one CPU core, 100 MB, no errors.
+`npm run load` plays 200 simulated players in rooms of four for 60 seconds against any running copy of the game and saves the results to `web/load-test.json`, which the architecture page shows.
+
+| Where | Messages a second | Server tick (p95) | CPU | Memory | Errors |
+| --- | --- | --- | --- | --- | --- |
+| Live, Render free plan (0.1 CPU) | 2,037 | 39 ms of a 100 ms budget | 11%, at the plan's limit | 99 MB | 0 |
+| A laptop | 2,034 | 6.8 ms | 15% of one core | 100 MB | 0 |
+
+Replies on the live server took 255 ms at p95, most of it the network trip from the test machine to Frankfurt. 200 players is about the free plan's ceiling.
 
 ## Layout
 
